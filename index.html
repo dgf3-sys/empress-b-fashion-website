@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Empress B | Fashion Design & Beading</title>
+  <meta name="description" content="Empress B - Beautiful African fashion design and beading. Discover elegant handmade designs and order through WhatsApp.">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #fffafc;
+      color: #21151c;
+      line-height: 1.6;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.96);
+      border-bottom: 1px solid #eee;
+      padding: 14px 18px;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #b27652;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .nav-btn {
+      padding: 9px 13px;
+      border-radius: 20px;
+      background: #f3e7e1;
+      color: #4b2920;
+      font-weight: 600;
+    }
+
+    .hero {
+      min-height: 540px;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(rgba(35,18,24,.55), rgba(35,18,24,.55)),
+        url("https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=1600&q=80")
+        center/cover;
+      color: white;
+      padding: 60px 20px;
+    }
+
+    .hero-content {
+      max-width: 1100px;
+      width: 100%;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 10vw, 78px);
+      line-height: 1;
+      max-width: 700px;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 600px;
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+
+    .primary-btn {
+      display: inline-block;
+      background: #b27652;
+      color: white;
+      padding: 14px 22px;
+      border-radius: 30px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 70px 18px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #765f67;
+    }
+
+    .search-box {
+      max-width: 600px;
+      margin: 0 auto 35px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 15px 18px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 5px 25px rgba(0,0,0,.07);
+    }
+
+    .product img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      background: #eee;
+    }
+
+    .product-info {
+      padding: 18px;
+    }
+
+    .product h3 {
+      margin-bottom: 7px;
+    }
+
+    .description {
+      color: #76656c;
+      font-size: 14px;
+      min-height: 45px;
+    }
+
+    .price {
+      font-size: 19px;
+      font-weight: 800;
+      margin: 12px 0;
+      color: #a45f3c;
+    }
+
+    .availability {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .available {
+      color: #27824b;
+    }
+
+    .unavailable {
+      color: #b33b3b;
+    }
+
+    .product button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      background: #21151c;
+      color: white;
+      font-weight: 700;
+    }
+
+    .product button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    .about {
+      background: #f5e9e3;
+      max-width: none;
+    }
+
+    .about-inner {
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .contact {
+      text-align: center;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .contact-buttons a {
+      text-decoration: none;
+      padding: 13px 20px;
+      border-radius: 25px;
+      font-weight: 700;
+    }
+
+    .whatsapp {
+      background: #25d366;
+      color: white;
+    }
+
+    .email {
+      background: #21151c;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      background: #21151c;
+      color: white;
+      padding: 30px 18px;
+    }
+
+    #cartPanel {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: min(390px, 92vw);
+      height: 100vh;
+      background: white;
+      z-index: 300;
+      padding: 22px;
+      box-shadow: -5px 0 30px rgba(0,0,0,.2);
+      transform: translateX(100%);
+      transition: .3s;
+      overflow-y: auto;
+    }
+
+    #cartPanel.open {
+      transform: translateX(0);
+    }
+
+    .cart-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      background: #eee;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
+
+    .cart-item {
+      border-bottom: 1px solid #eee;
+      padding: 14px 0;
+    }
+
+    .cart-total {
+      font-size: 21px;
+      font-weight: 800;
+      margin: 20px 0;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px 10px;
+      color: #777;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        min-height: 500px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      section {
+        padding: 55px 15px;
+      }
+
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .product img {
+        height: 220px;
+      }
+
+      .product-info {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">EMPRESS <span>B</span></div>
+
+    <div class="nav-buttons">
+      <button class="nav-btn" onclick="scrollToProducts()">Shop</button>
+      <button class="nav-btn" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Elegance Made Beautiful.</h1>
+      <p>
+        Discover beautiful African fashion, exquisite dress designs
+        and detailed handmade beading by Empress B.
+      </p>
+      <a href="#products" class="primary-btn">Explore Collection</a>
+    </div>
+  </section>
+
+  <section id="products">
+
+    <div class="section-title">
+      <h2>Our Collection</h2>
+      <p>Beautiful designs created to make you stand out.</p>
+    </div>
+
+    <div class="search-box">
+      <input
+        id="search"
+        type="search"
+        placeholder="Search dresses and designs..."
+        oninput="filterProducts()"
+      >
+    </div>
+
+    <div id="productsGrid" class="products">
+      <div class="loading">Loading our collection...</div>
+    </div>
+
+  </section>
+
+  <section class="about">
+    <div class="about-inner">
+      <div class="section-title">
+        <h2>About Empress B</h2>
+      </div>
+
+      <p>
+        Empress B is a fashion design and beading brand focused on
+        creating elegant, beautiful and carefully detailed fashion pieces.
+        Every design is made to help you feel confident and unforgettable.
+      </p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="section-title">
+      <h2>Let's Create Something Beautiful</h2>
+      <p>Have a question or want to order a design?</p>
+    </div>
+
+    <div class="contact-buttons">
+      <a
+        class="whatsapp"
+        href="https://wa.me/2348140120959"
+        target="_blank"
+      >
+        WhatsApp Us
+      </a>
+
+      <a
+        class="email"
+        href="mailto:empressbstitches@gmail.com"
+      >
+        Email Us
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 Empress B. Fashion Design & Beading.</p>
+</footer>
+
+<div id="cartPanel">
+
+  <div class="cart-head">
+    <h2>Your Cart</h2>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+
+  <div id="cartItems"></div>
+
+  <div class="cart-total">
+    Total: ₦<span id="cartTotal">0</span>
+  </div>
+
+  <button
+    class="primary-btn"
+    style="width:100%; border:none;"
+    onclick="orderOnWhatsApp()"
+  >
+    Order on WhatsApp
+  </button>
+
+</div>
+
+<script>
+  /*
+    IMPORTANT:
+    Replace the two values below with the SAFE
+    Project URL and Publishable Key from Supabase.
+
+    NEVER put your Supabase secret/service_role key here.
+  */
+
+  const SUPABASE_URL = "https://uldqpureopmjzgqnndbf.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__Dp9MknPGgaSN5EHB6JG5A_kSfWerAm";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  let products = [];
+  let cart = [];
+
+  async function loadProducts() {
+
+    const grid = document.getElementById("productsGrid");
+
+    const { data, error } = await supabaseClient
+      .from("products")
+      .select("*")
+      .eq("available", true)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error(error);
+
+      grid.innerHTML = `
+        <div class="loading">
+          <h3>Collection coming soon.</h3>
+          <p>We're preparing our beautiful designs.</p>
+        </div>
+      `;
+
+      return;
+    }
+
+    products = data || [];
+    renderProducts(products);
+  }
+
+  function renderProducts(list) {
+
+    const grid = document.getElementById("productsGrid");
+
+    if (!list.length) {
+      grid.innerHTML = `
+        <div class="loading">
+          <h3>No designs found.</h3>
+          <p>Check back soon for new Empress B designs.</p>
+        </div>
+      `;
+      return;
+    }
+
+    grid.innerHTML = list.map(product => `
+
+      <article class="product">
+
+        <img
+          src="${product.image_url || 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80'}"
+          alt="${escapeHtml(product.name)}"
+          loading="lazy"
+        >
+
+        <div class="product-info">
+
+          <h3>${escapeHtml(product.name)}</h3>
+
+          <p class="description">
+            ${escapeHtml(product.description || "")}
+          </p>
+
+          <div class="price">
+            ₦${Number(product.price_ngn).toLocaleString()}
+          </div>
+
+          <div class="availability available">
+            Available
+          </div>
+
+          <button onclick="addToCart('${product.id}')">
+            Add to Cart
+          </button>
+
+        </div>
+
+      </article>
+
+    `).join("");
+  }
+
+  function escapeHtml(value) {
+
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function filterProducts() {
+
+    const search = document
+      .getElementById("search")
+      .value
+      .toLowerCase()
+      .trim();
+
+    const filtered = products.filter(product =>
+      product.name.toLowerCase().includes(search) ||
+      (product.description || "").toLowerCase().includes(search)
+    );
+
+    renderProducts(filtered);
+  }
+
+  function addToCart(id) {
+
+    const product = products.find(p => p.id === id);
+
+    if (!product) return;
+
+    const existing = cart.find(item => item.id === id);
+
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.price_ngn,
+        quantity: 1
+      });
+    }
+
+    updateCart();
+    openCart();
+  }
+
+  function updateCart() {
+
+    document.getElementById("cartCount").textContent =
+      cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    const container = document.getElementById("cartItems");
+
+    if (!cart.length) {
+      container.innerHTML =
+        '<div class="empty">Your cart is empty.</div>';
+
+      document.getElementById("cartTotal").textContent = "0";
+      return;
+    }
+
+    let total = 0;
+
+    container.innerHTML = cart.map(item => {
+
+      const itemTotal = item.price * item.quantity;
+
+      total += itemTotal;
+
+      return `
+        <div class="cart-item">
+          <strong>${escapeHtml(item.name)}</strong>
+
+          <p>
+            ₦${Number(item.price).toLocaleString()}
+            × ${item.quantity}
+          </p>
+
+          <button
+            onclick="removeFromCart('${item.id}')"
+            style="margin-top:7px;padding:7px 12px;border-radius:8px;background:#eee;"
+          >
+            Remove
+          </button>
+        </div>
+      `;
+
+    }).join("");
+
+    document.getElementById("cartTotal").textContent =
+      total.toLocaleString();
+  }
+
+  function removeFromCart(id) {
+
+    cart = cart.filter(item => item.id !== id);
+
+    updateCart();
+  }
+
+  function openCart() {
+
+    document.getElementById("cartPanel")
+      .classList.add("open");
+  }
+
+  function closeCart() {
+
+    document.getElementById("cartPanel")
+      .classList.remove("open");
+  }
+
+  function scrollToProducts() {
+
+    document
+      .getElementById("products")
+      .scrollIntoView({ behavior: "smooth" });
+  }
+
+  function orderOnWhatsApp() {
+
+    if (!cart.length) {
+      alert("Your cart is empty.");
+      return;
+    }
+
+    let message =
+      "Hello Empress B! I would like to order:%0A%0A";
+
+    let total = 0;
+
+    cart.forEach(item => {
+
+      const subtotal = item.price * item.quantity;
+
+      total += subtotal;
+
+      message +=
+        "• " +
+        encodeURIComponent(item.name) +
+        " × " +
+        item.quantity +
+        " — ₦" +
+        subtotal.toLocaleString() +
+        "%0A";
+    });
+
+    message +=
+      "%0AEstimated total: ₦" +
+      total.toLocaleString();
+
+    message +=
+      "%0A%0APlease let me know how to proceed.";
+
+    window.open(
+      "https://wa.me/2348140120959?text=" + message,
+      "_blank"
+    );
+  }
+
+  loadProducts();
+</script>
+
+</body>
+        </html>
