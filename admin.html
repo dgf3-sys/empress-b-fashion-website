@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Empress B — Admin Dashboard</title>
+  <title>Empress B Admin</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -20,71 +18,54 @@
     }
 
     header {
-      background: #21141f;
+      background: #24131f;
       color: white;
-      padding: 18px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      padding: 20px;
     }
 
     header h1 {
-      margin: 0 0 5px;
-      font-size: 22px;
-    }
-
-    header p {
       margin: 0;
-      opacity: .8;
-      font-size: 13px;
     }
 
     .container {
       max-width: 1000px;
       margin: auto;
-      padding: 18px;
-    }
-
-    .login-box,
-    .dashboard {
-      background: white;
-      border-radius: 18px;
       padding: 20px;
-      box-shadow: 0 5px 25px rgba(0,0,0,.07);
     }
 
-    .login-box {
+    .box, .card {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.06);
+    }
+
+    .login {
       max-width: 450px;
       margin: 50px auto;
     }
 
-    h2 {
-      margin-top: 0;
-    }
-
-    input,
-    textarea,
-    select {
+    input, textarea, select {
       width: 100%;
       padding: 13px;
+      margin: 7px 0 12px;
       border: 1px solid #ddd;
       border-radius: 10px;
-      margin: 7px 0 12px;
-      font-size: 15px;
+      font-size: 16px;
     }
 
     textarea {
       min-height: 100px;
-      resize: vertical;
     }
 
     button {
       border: 0;
-      border-radius: 10px;
       padding: 12px 16px;
-      cursor: pointer;
-      font-weight: bold;
       margin: 4px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     .primary {
@@ -93,7 +74,7 @@
     }
 
     .dark {
-      background: #241d23;
+      background: #24131f;
       color: white;
     }
 
@@ -108,13 +89,9 @@
 
     .tabs {
       display: flex;
-      gap: 8px;
       overflow-x: auto;
-      padding: 5px 0 15px;
-    }
-
-    .tabs button {
-      white-space: nowrap;
+      gap: 5px;
+      margin-bottom: 20px;
     }
 
     .tab {
@@ -125,42 +102,35 @@
       display: block;
     }
 
-    .card {
-      border: 1px solid #eee;
-      border-radius: 15px;
-      padding: 15px;
-      margin: 15px 0;
-      background: #fff;
-    }
-
-    .card img {
-      width: 100%;
-      max-height: 280px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 10px;
-    }
-
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 15px;
+    }
+
+    .item img {
+      width: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      border-radius: 12px;
     }
 
     .message {
       padding: 12px;
       border-radius: 10px;
-      margin: 12px 0;
+      margin: 10px 0;
       display: none;
     }
 
     .success {
-      background: #e5f7e9;
+      display: block;
+      background: #e4f6e8;
       color: #17652a;
     }
 
     .error {
-      background: #fde8e8;
+      display: block;
+      background: #fde5e5;
       color: #9b1c1c;
     }
 
@@ -168,26 +138,20 @@
       display: none !important;
     }
 
-    .small {
-      font-size: 13px;
-      color: #666;
-    }
-
     .status {
       display: inline-block;
       padding: 5px 9px;
       border-radius: 20px;
       font-size: 12px;
-      background: #eee;
     }
 
-    .status.active {
+    .on {
       background: #dff5e5;
       color: #17652a;
     }
 
-    .status.inactive {
-      background: #f9dddd;
+    .off {
+      background: #f8dddd;
       color: #8a1c1c;
     }
   </style>
@@ -196,106 +160,126 @@
 <body>
 
 <header>
-  <h1>EMPRESS B — Admin Dashboard</h1>
-  <p>Manage your fashion website from your phone</p>
+  <h1>EMPRESS B 👑</h1>
+  <p>Administrator Dashboard</p>
 </header>
 
 <div class="container">
 
   <!-- LOGIN -->
-  <div id="loginBox" class="login-box">
+  <div id="loginBox" class="box login">
+
     <h2>Admin Login</h2>
 
-    <p class="small">
-      Sign in with your Empress B administrator account.
-    </p>
+    <input
+      id="email"
+      type="email"
+      placeholder="Admin email"
+      autocomplete="email">
 
-    <input id="loginEmail" type="email" placeholder="Admin email">
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password">
 
-    <input id="loginPassword" type="password" placeholder="Password">
-
-    <button class="primary" onclick="adminLogin()">Login</button>
+    <button id="loginButton" class="primary">
+      Login
+    </button>
 
     <div id="loginMessage" class="message"></div>
+
   </div>
 
 
   <!-- DASHBOARD -->
-  <div id="dashboard" class="dashboard hidden">
+  <div id="dashboard" class="hidden">
 
-    <h2>Welcome, Empress B 👑</h2>
+    <div class="box">
 
-    <p class="small">
-      From here you can control what visitors see on your website.
-    </p>
+      <h2>Welcome, Empress B 👑</h2>
 
-    <button class="dark" onclick="adminLogout()">Sign Out</button>
+      <p>You are logged in as administrator.</p>
 
-    <div id="mainMessage" class="message"></div>
+      <button id="logoutButton" class="dark">
+        Sign Out
+      </button>
 
-    <!-- TABS -->
+      <div id="mainMessage" class="message"></div>
+
+    </div>
+
+
     <div class="tabs">
-      <button class="primary" onclick="showTab('productsTab')">🛍️ Products</button>
-      <button class="light" onclick="showTab('galleryTab')">👗 Fashion Gallery</button>
-      <button class="light" onclick="showTab('videosTab')">🎬 Videos</button>
-      <button class="light" onclick="showTab('adsTab')">📢 Advertisements</button>
+
+      <button class="primary" data-tab="productsTab">
+        🛍️ Products
+      </button>
+
+      <button class="light" data-tab="galleryTab">
+        👗 Fashion Gallery
+      </button>
+
+      <button class="light" data-tab="videosTab">
+        🎬 Videos
+      </button>
+
+      <button class="light" data-tab="adsTab">
+        📢 Advertisements
+      </button>
+
     </div>
 
 
     <!-- PRODUCTS -->
     <section id="productsTab" class="tab active">
 
-      <h2>🛍️ Products</h2>
+      <div class="box">
 
-      <div class="card">
-
-        <h3>Add New Product</h3>
+        <h2>🛍️ Add Product</h2>
 
         <input id="productImage" type="file" accept="image/*">
 
-        <input id="productName" placeholder="Dress/product name">
+        <input id="productName" placeholder="Product name">
 
-        <textarea id="productDescription"
-          placeholder="Describe the dress, fabric, design, beads, etc."></textarea>
+        <textarea
+          id="productDescription"
+          placeholder="Product description"></textarea>
 
-        <input id="productPrice"
+        <input
+          id="productPrice"
           type="number"
           placeholder="Price in NGN">
 
-        <button class="primary" onclick="addProduct()">
+        <button id="addProductButton" class="primary">
           Add Product
         </button>
 
       </div>
 
-      <h3>Your Products</h3>
+      <h2>Your Products</h2>
 
       <div id="productsList" class="grid"></div>
 
     </section>
 
 
-    <!-- FASHION GALLERY -->
+    <!-- GALLERY -->
     <section id="galleryTab" class="tab">
 
-      <h2>👗 African Fashion Gallery</h2>
+      <div class="box">
 
-      <p class="small">
-        Add beautiful African fashion inspiration, beading designs,
-        traditional styles and other fashion images.
-      </p>
-
-      <div class="card">
-
-        <h3>Add Fashion Design</h3>
+        <h2>👗 Add Fashion Design</h2>
 
         <input id="galleryImage" type="file" accept="image/*">
 
-        <input id="galleryTitle"
+        <input
+          id="galleryTitle"
           placeholder="Design title">
 
-        <textarea id="galleryDescription"
-          placeholder="Describe this fashion design"></textarea>
+        <textarea
+          id="galleryDescription"
+          placeholder="Describe the design"></textarea>
 
         <select id="galleryCategory">
           <option>African Fashion</option>
@@ -313,13 +297,13 @@
 
         <br>
 
-        <button class="primary" onclick="addGallery()">
-          Add Fashion Design
+        <button id="addGalleryButton" class="primary">
+          Add Design
         </button>
 
       </div>
 
-      <h3>Gallery</h3>
+      <h2>Fashion Gallery</h2>
 
       <div id="galleryList" class="grid"></div>
 
@@ -329,37 +313,35 @@
     <!-- VIDEOS -->
     <section id="videosTab" class="tab">
 
-      <h2>🎬 Fashion Videos</h2>
+      <div class="box">
 
-      <p class="small">
-        Add videos you own or have permission to use.
-      </p>
+        <h2>🎬 Add Fashion Video</h2>
 
-      <div class="card">
-
-        <h3>Add Video</h3>
-
-        <input id="videoTitle"
+        <input
+          id="videoTitle"
           placeholder="Video title">
 
-        <textarea id="videoDescription"
+        <textarea
+          id="videoDescription"
           placeholder="Video description"></textarea>
 
-        <input id="videoUrl"
+        <input
+          id="videoUrl"
           type="url"
           placeholder="Video URL">
 
-        <input id="videoThumbnail"
+        <input
+          id="videoThumbnail"
           type="url"
-          placeholder="Thumbnail image URL (optional)">
+          placeholder="Thumbnail URL (optional)">
 
-        <button class="primary" onclick="addVideo()">
+        <button id="addVideoButton" class="primary">
           Add Video
         </button>
 
       </div>
 
-      <h3>Your Videos</h3>
+      <h2>Fashion Videos</h2>
 
       <div id="videosList" class="grid"></div>
 
@@ -369,40 +351,38 @@
     <!-- ADVERTISEMENTS -->
     <section id="adsTab" class="tab">
 
-      <h2>📢 Advertisements & Promotions</h2>
+      <div class="box">
 
-      <p class="small">
-        Create promotions, announcements, special offers and
-        anything you want visitors to notice on the website.
-      </p>
+        <h2>📢 Create Advertisement</h2>
 
-      <div class="card">
-
-        <h3>Create Advertisement</h3>
-
-        <input id="adTitle"
+        <input
+          id="adTitle"
           placeholder="Advertisement title">
 
-        <textarea id="adDescription"
+        <textarea
+          id="adDescription"
           placeholder="Advertisement message"></textarea>
 
-        <input id="adImage"
+        <input
+          id="adImage"
           type="file"
           accept="image/*">
 
-        <input id="adButtonText"
+        <input
+          id="adButtonText"
           placeholder="Button text e.g. Shop Now">
 
-        <input id="adButtonUrl"
-          placeholder="Button link or WhatsApp link">
+        <input
+          id="adButtonUrl"
+          placeholder="Button link">
 
-        <button class="primary" onclick="addAdvertisement()">
+        <button id="addAdButton" class="primary">
           Publish Advertisement
         </button>
 
       </div>
 
-      <h3>Your Advertisements</h3>
+      <h2>Your Advertisements</h2>
 
       <div id="adsList" class="grid"></div>
 
@@ -418,6 +398,13 @@
 const SUPABASE_URL = "https://uldqpureopmjzgqnndbf.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__Dp9MknPGgaSN5EHB6JG5A_kSfWerAm";
 
+
+/* IMPORTANT:
+   Replace the two values above with the SAME
+   values already working in your index.html.
+*/
+
+
 const supabaseClient =
   window.supabase.createClient(
     SUPABASE_URL,
@@ -425,156 +412,161 @@ const supabaseClient =
   );
 
 
-/* =========================
-   GENERAL
-========================= */
+const loginBox =
+  document.getElementById("loginBox");
 
-function showMessage(id, text, type = "success") {
+const dashboard =
+  document.getElementById("dashboard");
 
-  const box = document.getElementById(id);
+const loginMessage =
+  document.getElementById("loginMessage");
 
-  box.textContent = text;
-
-  box.className = "message " + type;
-
-  box.style.display = "block";
-
-  setTimeout(() => {
-    box.style.display = "none";
-  }, 5000);
-}
+const mainMessage =
+  document.getElementById("mainMessage");
 
 
-function showTab(tabId) {
+function message(element, text, error = false) {
 
-  document.querySelectorAll(".tab")
-    .forEach(tab => tab.classList.remove("active"));
+  element.textContent = text;
 
-  document.getElementById(tabId)
-    .classList.add("active");
+  element.className =
+    "message " + (error ? "error" : "success");
 
 }
 
 
-/* =========================
-   ADMIN AUTH
-========================= */
+function clearMessage(element) {
 
-async function adminLogin() {
+  element.textContent = "";
+  element.className = "message";
 
-  const email =
-    document.getElementById("loginEmail").value.trim();
+}
 
-  const password =
-    document.getElementById("loginPassword").value;
 
-  if (!email || !password) {
+/* LOGIN */
 
-    showMessage(
-      "loginMessage",
-      "Enter your admin email and password.",
-      "error"
-    );
+document
+  .getElementById("loginButton")
+  .addEventListener("click", async function () {
 
-    return;
-  }
+    clearMessage(loginMessage);
 
-  const { data, error } =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    if (!email || !password) {
+
+      message(
+        loginMessage,
+        "Please enter your email and password.",
+        true
+      );
+
+      return;
+    }
+
+    const button = this;
+
+    button.disabled = true;
+    button.textContent = "Logging in...";
+
+    try {
+
+      const result =
+        await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      const user = result.data.user;
+
+      const role =
+        user &&
+        user.app_metadata &&
+        user.app_metadata.role;
+
+      if (role !== "admin") {
+
+        await supabaseClient.auth.signOut();
+
+        throw new Error(
+          "This account is not an administrator."
+        );
+      }
+
+      loginBox.classList.add("hidden");
+      dashboard.classList.remove("hidden");
+
+      message(
+        mainMessage,
+        "Login successful. Welcome to your admin dashboard!"
+      );
+
+      loadEverything();
+
+    } catch (error) {
+
+      message(
+        loginMessage,
+        error.message || "Login failed.",
+        true
+      );
+
+    } finally {
+
+      button.disabled = false;
+      button.textContent = "Login";
+
+    }
+
+  });
+
+
+/* LOGOUT */
+
+document
+  .getElementById("logoutButton")
+  .addEventListener("click", async function () {
+
+    await supabaseClient.auth.signOut();
+
+    dashboard.classList.add("hidden");
+    loginBox.classList.remove("hidden");
+
+  });
+
+
+/* TABS */
+
+document
+  .querySelectorAll("[data-tab]")
+  .forEach(button => {
+
+    button.addEventListener("click", function () {
+
+      document
+        .querySelectorAll(".tab")
+        .forEach(tab =>
+          tab.classList.remove("active")
+        );
+
+      document
+        .getElementById(this.dataset.tab)
+        .classList.add("active");
+
     });
 
-  if (error) {
-
-    showMessage(
-      "loginMessage",
-      error.message,
-      "error"
-    );
-
-    return;
-  }
-
-  const role =
-    data.user?.app_metadata?.role;
-
-  if (role !== "admin") {
-
-    await supabaseClient.auth.signOut();
-
-    showMessage(
-      "loginMessage",
-      "This account is not an administrator.",
-      "error"
-    );
-
-    return;
-  }
-
-  showDashboard();
-
-}
+  });
 
 
-async function adminLogout() {
-
-  await supabaseClient.auth.signOut();
-
-  document
-    .getElementById("dashboard")
-    .classList.add("hidden");
-
-  document
-    .getElementById("loginBox")
-    .classList.remove("hidden");
-}
-
-
-function showDashboard() {
-
-  document
-    .getElementById("loginBox")
-    .classList.add("hidden");
-
-  document
-    .getElementById("dashboard")
-    .classList.remove("hidden");
-
-  loadProducts();
-  loadGallery();
-  loadVideos();
-  loadAdvertisements();
-}
-
-
-async function checkAdminSession() {
-
-  const { data } =
-    await supabaseClient.auth.getSession();
-
-  const session = data.session;
-
-  if (!session) return;
-
-  const role =
-    session.user?.app_metadata?.role;
-
-  if (role === "admin") {
-
-    showDashboard();
-
-  } else {
-
-    await supabaseClient.auth.signOut();
-
-  }
-}
-
-
-/* =========================
-   STORAGE
-========================= */
+/* IMAGE UPLOAD */
 
 async function uploadImage(file, folder) {
 
@@ -586,31 +578,38 @@ async function uploadImage(file, folder) {
     file.name.split(".").pop();
 
   const filename =
-    `${folder}/${Date.now()}-${Math.random()
-      .toString(36)
-      .substring(2)}.${extension}`;
+    folder +
+    "/" +
+    Date.now() +
+    "-" +
+    Math.random().toString(36).substring(2) +
+    "." +
+    extension;
 
-  const { error } =
+  const upload =
     await supabaseClient.storage
       .from("product-images")
-      .upload(filename, file, {
-        upsert: false
-      });
+      .upload(filename, file);
 
-  if (error) throw error;
+  if (upload.error) {
+    throw upload.error;
+  }
 
-  const { data } =
+  const publicUrl =
     supabaseClient.storage
       .from("product-images")
       .getPublicUrl(filename);
 
-  return data.publicUrl;
+  return publicUrl.data.publicUrl;
 }
 
 
-/* =========================
-   PRODUCTS
-========================= */
+/* PRODUCTS */
+
+document
+  .getElementById("addProductButton")
+  .addEventListener("click", addProduct);
+
 
 async function addProduct() {
 
@@ -620,71 +619,55 @@ async function addProduct() {
       document.getElementById("productImage").files[0];
 
     const name =
-      document.getElementById("productName")
-        .value.trim();
+      document.getElementById("productName").value.trim();
 
     const description =
-      document.getElementById("productDescription")
-        .value.trim();
+      document.getElementById("productDescription").value.trim();
 
     const price =
-      Number(
-        document.getElementById("productPrice").value
-      );
+      Number(document.getElementById("productPrice").value);
 
     if (!file || !name || !price) {
-
-      showMessage(
-        "mainMessage",
-        "Please provide an image, product name and price.",
-        "error"
+      throw new Error(
+        "Please choose an image, enter a name and enter a price."
       );
-
-      return;
     }
 
-    showMessage(
-      "mainMessage",
-      "Uploading product..."
-    );
+    message(mainMessage, "Uploading product...");
 
     const imageUrl =
       await uploadImage(file, "products");
 
-    const { error } =
+    const result =
       await supabaseClient
         .from("products")
         .insert({
-          name,
-          description,
+          name: name,
+          description: description,
           price_ngn: price,
           image_url: imageUrl,
           available: true
         });
 
-    if (error) throw error;
+    if (result.error) {
+      throw result.error;
+    }
 
     document.getElementById("productImage").value = "";
     document.getElementById("productName").value = "";
     document.getElementById("productDescription").value = "";
     document.getElementById("productPrice").value = "";
 
-    showMessage(
-      "mainMessage",
-      "Product added successfully!"
-    );
+    message(mainMessage, "Product added successfully!");
 
     loadProducts();
 
   } catch (error) {
 
-    showMessage(
-      "mainMessage",
-      error.message,
-      "error"
-    );
+    message(mainMessage, error.message, true);
 
   }
+
 }
 
 
@@ -693,9 +676,9 @@ async function loadProducts() {
   const box =
     document.getElementById("productsList");
 
-  box.innerHTML = "Loading...";
+  box.innerHTML = "Loading products...";
 
-  const { data, error } =
+  const result =
     await supabaseClient
       .from("products")
       .select("*")
@@ -703,15 +686,15 @@ async function loadProducts() {
         ascending: false
       });
 
-  if (error) {
+  if (result.error) {
 
     box.innerHTML =
-      `<p>${error.message}</p>`;
+      "<p>" + result.error.message + "</p>";
 
     return;
   }
 
-  if (!data.length) {
+  if (!result.data.length) {
 
     box.innerHTML =
       "<p>No products yet.</p>";
@@ -720,15 +703,15 @@ async function loadProducts() {
   }
 
   box.innerHTML =
-    data.map(product => `
+    result.data.map(product => `
 
-      <div class="card">
+      <div class="card item">
 
-        <img src="${escapeHtml(product.image_url)}">
+        <img src="${safe(product.image_url)}">
 
-        <h3>${escapeHtml(product.name)}</h3>
+        <h3>${safe(product.name)}</h3>
 
-        <p>${escapeHtml(product.description || "")}</p>
+        <p>${safe(product.description || "")}</p>
 
         <strong>
           ₦${Number(product.price_ngn).toLocaleString()}
@@ -736,7 +719,7 @@ async function loadProducts() {
 
         <p>
           <span class="status ${
-            product.available ? "active" : "inactive"
+            product.available ? "on" : "off"
           }">
             ${product.available ? "Available" : "Unavailable"}
           </span>
@@ -744,7 +727,7 @@ async function loadProducts() {
 
         <button class="light"
           onclick="toggleProduct('${product.id}', ${product.available})">
-          ${product.available ? "Mark Unavailable" : "Make Available"}
+          ${product.available ? "Hide Product" : "Show Product"}
         </button>
 
         <button class="danger"
@@ -761,7 +744,7 @@ async function loadProducts() {
 
 async function toggleProduct(id, current) {
 
-  const { error } =
+  const result =
     await supabaseClient
       .from("products")
       .update({
@@ -769,12 +752,12 @@ async function toggleProduct(id, current) {
       })
       .eq("id", id);
 
-  if (error) {
+  if (result.error) {
 
-    showMessage(
-      "mainMessage",
-      error.message,
-      "error"
+    message(
+      mainMessage,
+      result.error.message,
+      true
     );
 
     return;
@@ -788,35 +771,35 @@ async function deleteProduct(id) {
 
   if (!confirm("Delete this product?")) return;
 
-  const { error } =
+  const result =
     await supabaseClient
       .from("products")
       .delete()
       .eq("id", id);
 
-  if (error) {
+  if (result.error) {
 
-    showMessage(
-      "mainMessage",
-      error.message,
-      "error"
+    message(
+      mainMessage,
+      result.error.message,
+      true
     );
 
     return;
   }
 
-  showMessage(
-    "mainMessage",
-    "Product deleted."
-  );
+  message(mainMessage, "Product deleted.");
 
   loadProducts();
 }
 
 
-/* =========================
-   FASHION GALLERY
-========================= */
+/* GALLERY */
+
+document
+  .getElementById("addGalleryButton")
+  .addEventListener("click", addGallery);
+
 
 async function addGallery() {
 
@@ -826,12 +809,10 @@ async function addGallery() {
       document.getElementById("galleryImage").files[0];
 
     const title =
-      document.getElementById("galleryTitle")
-        .value.trim();
+      document.getElementById("galleryTitle").value.trim();
 
     const description =
-      document.getElementById("galleryDescription")
-        .value.trim();
+      document.getElementById("galleryDescription").value.trim();
 
     const category =
       document.getElementById("galleryCategory").value;
@@ -840,59 +821,47 @@ async function addGallery() {
       document.getElementById("galleryFeatured").checked;
 
     if (!file || !title) {
-
-      showMessage(
-        "mainMessage",
-        "Choose an image and enter a title.",
-        "error"
+      throw new Error(
+        "Please choose an image and enter a title."
       );
-
-      return;
     }
 
-    showMessage(
-      "mainMessage",
-      "Uploading fashion design..."
-    );
+    message(mainMessage, "Uploading fashion design...");
 
     const imageUrl =
       await uploadImage(file, "gallery");
 
-    const { error } =
+    const result =
       await supabaseClient
         .from("fashion_gallery")
         .insert({
-          title,
-          description,
+          title: title,
+          description: description,
           image_url: imageUrl,
-          category,
-          featured,
+          category: category,
+          featured: featured,
           active: true
         });
 
-    if (error) throw error;
+    if (result.error) {
+      throw result.error;
+    }
 
     document.getElementById("galleryImage").value = "";
     document.getElementById("galleryTitle").value = "";
     document.getElementById("galleryDescription").value = "";
     document.getElementById("galleryFeatured").checked = false;
 
-    showMessage(
-      "mainMessage",
-      "Fashion design added!"
-    );
+    message(mainMessage, "Fashion design added!");
 
     loadGallery();
 
   } catch (error) {
 
-    showMessage(
-      "mainMessage",
-      error.message,
-      "error"
-    );
+    message(mainMessage, error.message, true);
 
   }
+
 }
 
 
@@ -901,9 +870,9 @@ async function loadGallery() {
   const box =
     document.getElementById("galleryList");
 
-  box.innerHTML = "Loading...";
+  box.innerHTML = "Loading gallery...";
 
-  const { data, error } =
+  const result =
     await supabaseClient
       .from("fashion_gallery")
       .select("*")
@@ -911,39 +880,37 @@ async function loadGallery() {
         ascending: false
       });
 
-  if (error) {
+  if (result.error) {
 
     box.innerHTML =
-      `<p>${error.message}</p>`;
+      "<p>" + result.error.message + "</p>";
 
     return;
   }
 
-  if (!data.length) {
+  if (!result.data.length) {
 
     box.innerHTML =
-      "<p>No fashion designs yet.</p>";
+      "<p>No designs yet.</p>";
 
     return;
   }
 
   box.innerHTML =
-    data.map(item => `
+    result.data.map(item => `
 
-      <div class="card">
+      <div class="card item">
 
-        <img src="${escapeHtml(item.image_url)}">
+        <img src="${safe(item.image_url)}">
 
-        <h3>${escapeHtml(item.title)}</h3>
+        <h3>${safe(item.title)}</h3>
 
-        <p>${escapeHtml(item.description || "")}</p>
+        <p>${safe(item.description || "")}</p>
 
-        <p>
-          <strong>${escapeHtml(item.category)}</strong>
-        </p>
+        <p>${safe(item.category)}</p>
 
         <span class="status ${
-          item.active ? "active" : "inactive"
+          item.active ? "on" : "off"
         }">
           ${item.active ? "Visible" : "Hidden"}
         </span>
@@ -969,7 +936,7 @@ async function loadGallery() {
 
 async function toggleGallery(id, current) {
 
-  const { error } =
+  const result =
     await supabaseClient
       .from("fashion_gallery")
       .update({
@@ -977,14 +944,8 @@ async function toggleGallery(id, current) {
       })
       .eq("id", id);
 
-  if (error) {
-
-    showMessage(
-      "mainMessage",
-      error.message,
-      "error"
-    );
-
+  if (result.error) {
+    message(mainMessage, result.error.message, true);
     return;
   }
 
@@ -994,22 +955,16 @@ async function toggleGallery(id, current) {
 
 async function deleteGallery(id) {
 
-  if (!confirm("Delete this fashion design?")) return;
+  if (!confirm("Delete this design?")) return;
 
-  const { error } =
+  const result =
     await supabaseClient
       .from("fashion_gallery")
       .delete()
       .eq("id", id);
 
-  if (error) {
-
-    showMessage(
-      "mainMessage",
-      error.message,
-      "error"
-    );
-
+  if (result.error) {
+    message(mainMessage, result.error.message, true);
     return;
   }
 
@@ -1017,56 +972,55 @@ async function deleteGallery(id) {
 }
 
 
-/* =========================
-   VIDEOS
-========================= */
+/* VIDEOS */
+
+document
+  .getElementById("addVideoButton")
+  .addEventListener("click", addVideo);
+
 
 async function addVideo() {
 
   const title =
-    document.getElementById("videoTitle")
-      .value.trim();
+    document.getElementById("videoTitle").value.trim();
 
   const description =
-    document.getElementById("videoDescription")
-      .value.trim();
+    document.getElementById("videoDescription").value.trim();
 
   const videoUrl =
-    document.getElementById("videoUrl")
-      .value.trim();
+    document.getElementById("videoUrl").value.trim();
 
   const thumbnail =
-    document.getElementById("videoThumbnail")
-      .value.trim();
+    document.getElementById("videoThumbnail").value.trim();
 
   if (!title || !videoUrl) {
 
-    showMessage(
-      "mainMessage",
+    message(
+      mainMessage,
       "Enter a video title and video URL.",
-      "error"
+      true
     );
 
     return;
   }
 
-  const { error } =
+  const result =
     await supabaseClient
       .from("fashion_videos")
       .insert({
-        title,
-        description,
+        title: title,
+        description: description,
         video_url: videoUrl,
         thumbnail_url: thumbnail,
         active: true
       });
 
-  if (error) {
+  if (result.error) {
 
-    showMessage(
-      "mainMessage",
-      error.message,
-      "error"
+    message(
+      mainMessage,
+      result.error.message,
+      true
     );
 
     return;
@@ -1077,10 +1031,7 @@ async function addVideo() {
   document.getElementById("videoUrl").value = "";
   document.getElementById("videoThumbnail").value = "";
 
-  showMessage(
-    "mainMessage",
-    "Video added successfully!"
-  );
+  message(mainMessage, "Video added!");
 
   loadVideos();
 }
@@ -1091,9 +1042,9 @@ async function loadVideos() {
   const box =
     document.getElementById("videosList");
 
-  box.innerHTML = "Loading...";
+  box.innerHTML = "Loading videos...";
 
-  const { data, error } =
+  const result =
     await supabaseClient
       .from("fashion_videos")
       .select("*")
@@ -1101,15 +1052,60 @@ async function loadVideos() {
         ascending: false
       });
 
-  if (error) {
+  if (result.error) {
 
     box.innerHTML =
-      `<p>${error.message}</p>`;
+      "<p>" + result.error.message + "</p>";
 
     return;
   }
 
-  if (!data.length) {
+  if (!result.data.length) {
 
     box.innerHTML =
-     
+      "<p>No videos yet.</p>";
+
+    return;
+  }
+
+  box.innerHTML =
+    result.data.map(video => `
+
+      <div class="card item">
+
+        ${
+          video.thumbnail_url
+          ? `<img src="${safe(video.thumbnail_url)}">`
+          : ""
+        }
+
+        <h3>${safe(video.title)}</h3>
+
+        <p>${safe(video.description || "")}</p>
+
+        <span class="status ${
+          video.active ? "on" : "off"
+        }">
+          ${video.active ? "Visible" : "Hidden"}
+        </span>
+
+        <br>
+
+        <button class="light"
+          onclick="toggleVideo('${video.id}', ${video.active})">
+          ${video.active ? "Hide" : "Show"}
+        </button>
+
+        <button class="danger"
+          onclick="deleteVideo('${video.id}')">
+          Delete
+        </button>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+async function tog
