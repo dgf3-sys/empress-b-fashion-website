@@ -491,16 +491,15 @@
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error(error);
+  console.error("SUPABASE ERROR:", error);
 
-      grid.innerHTML = `
-        <div class="loading">
-          <h3>Collection coming soon.</h3>
-          <p>We're preparing our beautiful designs.</p>
-        </div>
-      `;
-
-      return;
+  grid.innerHTML = `
+    <div class="loading">
+      <h3>We couldn't load our collection.</h3>
+      <p><strong>Error:</strong> ${escapeHtml(error.message)}</p>
+    </div>
+  `;
+  return;
     }
 
     products = data || [];
