@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Empress B — Admin</title>
+  <title>Empress B — Admin Dashboard</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -28,39 +28,57 @@
 
     header h1 {
       margin: 0;
-      font-size: 24px;
       letter-spacing: 2px;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      opacity: 0.8;
     }
 
     .container {
       width: 92%;
-      max-width: 700px;
-      margin: 30px auto;
+      max-width: 850px;
+      margin: 25px auto;
     }
 
     .card {
       background: white;
-      padding: 24px;
+      padding: 22px;
       border-radius: 16px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
       margin-bottom: 20px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.07);
     }
 
     h2 {
       margin-top: 0;
     }
 
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
     input,
+    textarea,
     button {
       width: 100%;
-      padding: 14px;
-      margin-top: 12px;
+      padding: 13px;
+      margin-top: 7px;
       border-radius: 10px;
       font-size: 16px;
     }
 
-    input {
+    input,
+    textarea {
       border: 1px solid #ddd;
+      background: white;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
     }
 
     button {
@@ -68,18 +86,15 @@
       background: #111;
       color: white;
       cursor: pointer;
+      font-weight: bold;
     }
 
-    button:hover {
-      opacity: 0.9;
+    button:disabled {
+      opacity: 0.5;
     }
 
-    .danger {
+    .logout {
       background: #b42318;
-    }
-
-    #dashboard {
-      display: none;
     }
 
     .message {
@@ -87,6 +102,40 @@
       padding: 12px;
       border-radius: 8px;
       background: #f1f1f1;
+      display: none;
+    }
+
+    .product {
+      border: 1px solid #eee;
+      border-radius: 14px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .product img {
+      width: 100%;
+      max-height: 350px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .product h3 {
+      margin-bottom: 5px;
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .available {
+      color: green;
+      font-weight: bold;
+    }
+
+    .unavailable {
+      color: #b42318;
+      font-weight: bold;
     }
 
     .hidden {
@@ -124,24 +173,64 @@
 
     <button onclick="login()">Login</button>
 
-    <div id="loginMessage" class="message hidden"></div>
+    <div id="loginMessage" class="message"></div>
   </div>
 
   <!-- DASHBOARD -->
-  <div id="dashboard">
+  <div id="dashboard" class="hidden">
 
     <div class="card">
       <h2>Welcome, Empress B 👑</h2>
       <p>You are successfully logged in as administrator.</p>
 
-      <button class="danger" onclick="logout()">Logout</button>
+      <button class="logout" onclick="logout()">Logout</button>
     </div>
 
+    <!-- ADD PRODUCT -->
     <div class="card">
-      <h2>Product Management</h2>
-      <p>
-        Your product upload and management tools will appear here next.
-      </p>
+      <h2>Add New Product 👗</h2>
+
+      <label for="productImage">Dress Picture</label>
+      <input
+        type="file"
+        id="productImage"
+        accept="image/*"
+      >
+
+      <label for="productName">Dress Name</label>
+      <input
+        type="text"
+        id="productName"
+        placeholder="Example: Royal Beaded Gown"
+      >
+
+      <label for="productDescription">Description</label>
+      <textarea
+        id="productDescription"
+        placeholder="Describe the dress..."
+      ></textarea>
+
+      <label for="productPrice">Price (₦)</label>
+      <input
+        type="number"
+        id="productPrice"
+        placeholder="Example: 85000"
+        min="0"
+      >
+
+      <button id="addButton" onclick="addProduct()">
+        Add Product
+      </button>
+
+      <div id="productMessage" class="message"></div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="card">
+      <h2>Your Products</h2>
+      <div id="productsList">
+        Loading products...
+      </div>
     </div>
 
   </div>
@@ -149,6 +238,11 @@
 </div>
 
 <script>
+
+  /* ================================
+     SUPABASE CONNECTION
+  ================================= */
+
   const SUPABASE_URL = "https://uldqpureopmjzgqnndbf.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__Dp9MknPGgaSN5EHB6JG5A_kSfWerAm";
 
@@ -157,13 +251,23 @@
     SUPABASE_PUBLISHABLE_KEY
   );
 
+
+  /* ================================
+     LOGIN
+  ================================= */
+
   async function login() {
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
 
-    const message = document.getElementById("loginMessage");
+    const email =
+      document.getElementById("email").value.trim();
 
-    message.classList.remove("hidden");
+    const password =
+      document.getElementById("password").value;
+
+    const message =
+      document.getElementById("loginMessage");
+
+    message.style.display = "block";
     message.textContent = "Logging in...";
 
     const { data, error } =
@@ -181,23 +285,281 @@
       data.user?.app_metadata?.role;
 
     if (role !== "admin") {
+
       await supabaseClient.auth.signOut();
-      message.textContent = "Access denied. Admin account required.";
+
+      message.textContent =
+        "Access denied. Admin account required.";
+
       return;
     }
 
     document.getElementById("loginBox").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
+
+    document.getElementById("dashboard")
+      .classList.remove("hidden");
+
+    loadProducts();
   }
 
+
+  /* ================================
+     LOGOUT
+  ================================= */
+
   async function logout() {
+
     await supabaseClient.auth.signOut();
 
-    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("dashboard")
+      .classList.add("hidden");
+
     document.getElementById("loginBox").style.display = "block";
 
     document.getElementById("password").value = "";
   }
+
+
+  /* ================================
+     ADD PRODUCT
+  ================================= */
+
+  async function addProduct() {
+
+    const imageFile =
+      document.getElementById("productImage").files[0];
+
+    const name =
+      document.getElementById("productName").value.trim();
+
+    const description =
+      document.getElementById("productDescription").value.trim();
+
+    const price =
+      Number(document.getElementById("productPrice").value);
+
+    const message =
+      document.getElementById("productMessage");
+
+    const button =
+      document.getElementById("addButton");
+
+
+    if (!imageFile) {
+      message.style.display = "block";
+      message.textContent = "Please choose a dress picture.";
+      return;
+    }
+
+    if (!name) {
+      message.style.display = "block";
+      message.textContent = "Please enter the dress name.";
+      return;
+    }
+
+    if (!price || price < 0) {
+      message.style.display = "block";
+      message.textContent = "Please enter a valid price.";
+      return;
+    }
+
+
+    button.disabled = true;
+    button.textContent = "Uploading...";
+
+    message.style.display = "block";
+    message.textContent = "Uploading product...";
+
+
+    try {
+
+      /* Create a unique file name */
+
+      const fileExtension =
+        imageFile.name.split(".").pop();
+
+      const fileName =
+        `${crypto.randomUUID()}.${fileExtension}`;
+
+
+      /* Upload picture */
+
+      const { error: uploadError } =
+        await supabaseClient.storage
+          .from("product-images")
+          .upload(fileName, imageFile, {
+            cacheControl: "3600",
+            upsert: false
+          });
+
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+
+      /* Get public picture URL */
+
+      const { data: publicUrlData } =
+        supabaseClient.storage
+          .from("product-images")
+          .getPublicUrl(fileName);
+
+      const imageUrl =
+        publicUrlData.publicUrl;
+
+
+      /* Save product */
+
+      const { error: productError } =
+        await supabaseClient
+          .from("products")
+          .insert({
+            name: name,
+            description: description,
+            price_ngn: Math.round(price),
+            image_url: imageUrl,
+            available: true
+          });
+
+
+      if (productError) {
+        throw productError;
+      }
+
+
+      message.textContent =
+        "Product added successfully! 🎉";
+
+      document.getElementById("productImage").value = "";
+      document.getElementById("productName").value = "";
+      document.getElementById("productDescription").value = "";
+      document.getElementById("productPrice").value = "";
+
+      loadProducts();
+
+    } catch (error) {
+
+      console.error(error);
+
+      message.textContent =
+        "Error: " + error.message;
+
+    } finally {
+
+      button.disabled = false;
+      button.textContent = "Add Product";
+    }
+  }
+
+
+  /* ================================
+     LOAD PRODUCTS
+  ================================= */
+
+  async function loadProducts() {
+
+    const list =
+      document.getElementById("productsList");
+
+    list.innerHTML = "Loading products...";
+
+
+    const { data, error } =
+      await supabaseClient
+        .from("products")
+        .select("*")
+        .order("created_at", {
+          ascending: false
+        });
+
+
+    if (error) {
+
+      list.innerHTML =
+        "<p>Error loading products: " +
+        error.message +
+        "</p>";
+
+      return;
+    }
+
+
+    if (!data || data.length === 0) {
+
+      list.innerHTML =
+        "<p>You have not added any products yet.</p>";
+
+      return;
+    }
+
+
+    list.innerHTML = "";
+
+
+    data.forEach(product => {
+
+      const div =
+        document.createElement("div");
+
+      div.className = "product";
+
+
+      const image =
+        document.createElement("img");
+
+      image.src = product.image_url;
+      image.alt = product.name;
+
+
+      const title =
+        document.createElement("h3");
+
+      title.textContent = product.name;
+
+
+      const description =
+        document.createElement("p");
+
+      description.textContent =
+        product.description || "";
+
+
+      const price =
+        document.createElement("p");
+
+      price.className = "price";
+
+      price.textContent =
+        "₦" +
+        Number(product.price_ngn)
+          .toLocaleString("en-NG");
+
+
+      const availability =
+        document.createElement("p");
+
+      availability.textContent =
+        product.available
+          ? "Available"
+          : "Unavailable";
+
+      availability.className =
+        product.available
+          ? "available"
+          : "unavailable";
+
+
+      div.appendChild(image);
+      div.appendChild(title);
+      div.appendChild(description);
+      div.appendChild(price);
+      div.appendChild(availability);
+
+      list.appendChild(div);
+    });
+  }
+
 </script>
 
 </body>
