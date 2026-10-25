@@ -352,8 +352,9 @@
     <div class="logo">EMPRESS <span>B</span></div>
 
     <div class="nav-buttons">
-      <button class="nav-btn" onclick="scrollToProducts()">Shop</button>
-      <button class="nav-btn" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+  <button class="nav-btn" onclick="scrollToProducts()">Shop</button>
+  <button class="nav-btn" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+  <button class="nav-btn" onclick="openAccount()">👤 Account</button>
     </div>
   </div>
 </header>
@@ -459,7 +460,69 @@
   </button>
 
 </div>
+<div id="accountPanel" style="
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  z-index:500;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+">
+  <div style="
+    background:white;
+    width:100%;
+    max-width:420px;
+    padding:25px;
+    border-radius:18px;
+  ">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <h2>My Account</h2>
+      <button onclick="closeAccount()" style="
+        width:35px;
+        height:35px;
+        border-radius:50%;
+        border:none;
+        background:#eee;
+      ">✕</button>
+    </div>
 
+    <p style="margin:15px 0;">
+      Sign in or create an account to continue.
+    </p>
+
+    <input
+      id="accountEmail"
+      type="email"
+      placeholder="Email address"
+      style="width:100%;padding:13px;margin-bottom:10px;border:1px solid #ddd;border-radius:10px;"
+    >
+
+    <input
+      id="accountPassword"
+      type="password"
+      placeholder="Password"
+      style="width:100%;padding:13px;margin-bottom:10px;border:1px solid #ddd;border-radius:10px;"
+    >
+
+    <button
+      onclick="signUpCustomer()"
+      style="width:100%;padding:13px;background:#21151c;color:white;border:none;border-radius:10px;margin-bottom:10px;"
+    >
+      Create Account
+    </button>
+
+    <button
+      onclick="loginCustomer()"
+      style="width:100%;padding:13px;background:#b27652;color:white;border:none;border-radius:10px;"
+    >
+      Login
+    </button>
+
+    <p id="accountMessage" style="margin-top:15px;text-align:center;"></p>
+  </div>
+</div>
 <script>
   /*
     IMPORTANT:
@@ -720,7 +783,75 @@
     );
   }
 
-  loadProducts();
+  loadProducts();function openAccount() {
+  document.getElementById("accountPanel").style.display = "flex";
+}
+
+function closeAccount() {
+  document.getElementById("accountPanel").style.display = "none";
+}
+
+async function signUpCustomer() {
+  const email = document.getElementById("accountEmail").value.trim();
+  const password = document.getElementById("accountPassword").value;
+  const message = document.getElementById("accountMessage");
+
+  if (!email || !password) {
+    message.textContent = "Please enter your email and password.";
+    return;
+  }
+
+  if (password.length < 6) {
+    message.textContent = "Password must be at least 6 characters.";
+    return;
+  }
+
+  message.textContent = "Creating your account...";
+
+  const { error } = await supabaseClient.auth.signUp({
+    email: email,
+    password: password
+  });
+
+  if (error) {
+    message.textContent = error.message;
+    return;
+  }
+
+  message.textContent =
+    "Account created successfully! You can now log in.";
+}
+
+async function loginCustomer() {
+  const email = document.getElementById("accountEmail").value.trim();
+  const password = document.getElementById("accountPassword").value;
+  const message = document.getElementById("accountMessage");
+
+  if (!email || !password) {
+    message.textContent = "Please enter your email and password.";
+    return;
+  }
+
+  message.textContent = "Logging in...";
+
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+  if (error) {
+    message.textContent = error.message;
+    return;
+  }
+
+  message.textContent =
+    "Welcome back! You are now logged in.";
+
+  setTimeout(() => {
+    closeAccount();
+  }, 1000);
+  }
 </script>
 
 </body>
