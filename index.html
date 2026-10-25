@@ -1,950 +1,3739 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#201512">
-  <meta name="description" content="Empress B Stitches — African luxury fashion, custom-made dresses, occasion wear and bespoke tailoring.">
-  <title>Empress B Stitches | African Luxury Fashion</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#211613">
+<meta name="description" content="Empress B Stitches - African luxury fashion, custom-made dresses and occasion wear.">
+<meta name="author" content="Empress B Stitches">
 
-  <!-- ======================================================
-       EMPRESS B STITCHES — WEBSITE CONFIGURATION
-       ======================================================
+<title>Empress B Stitches | African Luxury Fashion</title>
 
-       1. Open https://supabase.com
-       2. Open your project.
-       3. Go to Project Settings / API.
-       4. Copy your Project URL and Publishable key.
-       5. Replace the two example values below.
+<!-- =========================================================
+     EMPRESS B STITCHES
+     SUPABASE CONFIGURATION
+     
+     YOU ONLY NEED TO CHANGE THESE TWO VALUES:
+     
+     1. SUPABASE_URL
+     2. SUPABASE_PUBLISHABLE_KEY
+     
+     Example:
+     
+     SUPABASE_URL:
+     https://your-project.supabase.co
+     
+     SUPABASE_PUBLISHABLE_KEY:
+     sb_publishable_xxxxxxxxxxxxxxxxx
+     
+     DO NOT PUT YOUR service_role KEY HERE.
+     ========================================================= -->
 
-       IMPORTANT:
-       Use the publishable key (or legacy anon key).
-       NEVER put your secret key or service_role key here.
-  ======================================================= -->
+<script>
+window.EMPRESS_CONFIG = {
 
-  <script>
-    window.EMpressBConfig = {
-      SUPABASE_URL: "https://uldqpureopmjzgqnndbf.supabase.co/rest/v1/",
-      SUPABASE_PUBLISHABLE_KEY: "sb_publishable__Dp9MknPGgaSN5EHB6JG5A_kSfWerAm",
+    /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+       PUT YOUR SUPABASE PROJECT URL HERE
+       <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
 
-      // WhatsApp number: country code + number, without + or spaces.
-      WHATSAPP_NUMBER: "2348140120959",
+    SUPABASE_URL:
+        "https://uldqpureopmjzgqnndbf.supabase.co/rest/v1/",
 
-      BUSINESS_EMAIL: "empressbstitches@gmail.com",
-      BUSINESS_NAME: "Empress B Stitches"
+    /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+       PUT YOUR SUPABASE PUBLISHABLE KEY HERE
+       <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+
+    SUPABASE_PUBLISHABLE_KEY:
+        "sb_publishable__Dp9MknPGgaSN5EHB6JG5A_kSfWerAm",
+
+    /* Business information */
+
+    WHATSAPP_NUMBER:
+        "2348140120959",
+
+    BUSINESS_EMAIL:
+        "empressbstitches@gmail.com",
+
+    BUSINESS_NAME:
+        "Empress B Stitches",
+
+    INSTAGRAM_URL:
+        "#",
+
+    FACEBOOK_URL:
+        "#",
+
+    TIKTOK_URL:
+        "#"
+};
+</script>
+
+<!-- Supabase JavaScript -->
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   01. ROOT VARIABLES
+   ========================================================= */
+
+:root {
+
+    --dark:
+        #211613;
+
+    --dark-2:
+        #30201c;
+
+    --wine:
+        #702d3b;
+
+    --wine-dark:
+        #4f202b;
+
+    --gold:
+        #d8b16c;
+
+    --gold-light:
+        #efd8a8;
+
+    --cream:
+        #faf5ed;
+
+    --cream-2:
+        #f2e8dc;
+
+    --paper:
+        #fffdf9;
+
+    --white:
+        #ffffff;
+
+    --black:
+        #000000;
+
+    --muted:
+        #82766e;
+
+    --muted-2:
+        #a4978e;
+
+    --line:
+        #e7dcd0;
+
+    --success:
+        #248a52;
+
+    --danger:
+        #a92c36;
+
+    --shadow:
+        0 18px 60px rgba(32, 21, 18, 0.12);
+
+    --shadow-soft:
+        0 8px 30px rgba(32, 21, 18, 0.08);
+
+    --radius:
+        10px;
+
+    --radius-lg:
+        18px;
+
+    --max:
+        1200px;
+}
+
+
+/* =========================================================
+   02. RESET
+   ========================================================= */
+
+* {
+    box-sizing:
+        border-box;
+}
+
+html {
+    scroll-behavior:
+        smooth;
+
+    scroll-padding-top:
+        90px;
+}
+
+body {
+    margin:
+        0;
+
+    background:
+        var(--paper);
+
+    color:
+        var(--dark);
+
+    font-family:
+        "DM Sans",
+        Arial,
+        sans-serif;
+
+    line-height:
+        1.65;
+}
+
+body.modal-open {
+    overflow:
+        hidden;
+}
+
+img {
+    display:
+        block;
+
+    max-width:
+        100%;
+}
+
+button,
+input,
+textarea,
+select {
+    font:
+        inherit;
+}
+
+button {
+    cursor:
+        pointer;
+}
+
+a {
+    color:
+        inherit;
+
+    text-decoration:
+        none;
+}
+
+ul {
+    margin:
+        0;
+
+    padding:
+        0;
+
+    list-style:
+        none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    line-height:
+        1.15;
+
+    margin-top:
+        0;
+}
+
+p {
+    margin-top:
+        0;
+}
+
+
+/* =========================================================
+   03. GENERAL UTILITIES
+   ========================================================= */
+
+.container {
+    width:
+        min(
+            var(--max),
+            92%
+        );
+
+    margin:
+        0 auto;
+}
+
+.section {
+    padding:
+        90px 0;
+}
+
+.section-small {
+    padding:
+        55px 0;
+}
+
+.eyebrow {
+    color:
+        var(--wine);
+
+    font-size:
+        0.72rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.2em;
+
+    text-transform:
+        uppercase;
+}
+
+.heading {
+    max-width:
+        760px;
+
+    margin:
+        0 auto 45px;
+
+    text-align:
+        center;
+}
+
+.heading h2 {
+    margin:
+        10px 0 14px;
+
+    font-size:
+        clamp(
+            2rem,
+            4vw,
+            3.3rem
+        );
+}
+
+.heading p {
+    color:
+        var(--muted);
+
+    margin:
+        0;
+}
+
+.hidden {
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   04. BUTTONS
+   ========================================================= */
+
+.btn {
+    min-height:
+        46px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    padding:
+        12px 20px;
+
+    border:
+        1px solid transparent;
+
+    border-radius:
+        6px;
+
+    background:
+        var(--dark);
+
+    color:
+        var(--white);
+
+    font-weight:
+        700;
+
+    transition:
+        0.2s ease;
+}
+
+.btn:hover {
+    background:
+        var(--wine);
+
+    transform:
+        translateY(-1px);
+}
+
+.btn.gold {
+    background:
+        var(--gold);
+
+    color:
+        var(--dark);
+}
+
+.btn.gold:hover {
+    background:
+        var(--gold-light);
+}
+
+.btn.light {
+    background:
+        var(--white);
+
+    color:
+        var(--dark);
+
+    border-color:
+        var(--line);
+}
+
+.btn.light:hover {
+    background:
+        var(--cream);
+}
+
+.btn.outline {
+    background:
+        transparent;
+
+    color:
+        var(--white);
+
+    border-color:
+        rgba(255,255,255,0.65);
+}
+
+.btn.outline:hover {
+    background:
+        var(--white);
+
+    color:
+        var(--dark);
+}
+
+.btn.danger {
+    background:
+        var(--danger);
+}
+
+.btn.small {
+    min-height:
+        40px;
+
+    padding:
+        9px 12px;
+
+    font-size:
+        0.78rem;
+}
+
+.btn.full {
+    width:
+        100%;
+}
+
+
+/* =========================================================
+   05. ANNOUNCEMENT BAR
+   ========================================================= */
+
+.announcement {
+    background:
+        var(--dark);
+
+    color:
+        var(--gold-light);
+
+    padding:
+        9px 15px;
+
+    text-align:
+        center;
+
+    font-size:
+        0.72rem;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.1em;
+
+    text-transform:
+        uppercase;
+}
+
+
+/* =========================================================
+   06. HEADER
+   ========================================================= */
+
+.site-header {
+    position:
+        sticky;
+
+    top:
+        0;
+
+    z-index:
+        100;
+
+    background:
+        rgba(255,253,249,0.96);
+
+    backdrop-filter:
+        blur(12px);
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+.nav {
+    min-height:
+        78px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+}
+
+.brand {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    flex-shrink:
+        0;
+}
+
+.brand-name {
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size:
+        1.45rem;
+
+    font-weight:
+        700;
+}
+
+.brand-tagline {
+    color:
+        var(--wine);
+
+    font-size:
+        0.55rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.18em;
+
+    text-transform:
+        uppercase;
+}
+
+.nav-links {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        22px;
+
+    font-size:
+        0.84rem;
+
+    font-weight:
+        600;
+}
+
+.nav-links a {
+    transition:
+        0.2s ease;
+}
+
+.nav-links a:hover {
+    color:
+        var(--wine);
+}
+
+.nav-actions {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+}
+
+.icon-btn {
+    width:
+        40px;
+
+    height:
+        40px;
+
+    display:
+        inline-grid;
+
+    place-items:
+        center;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        50%;
+
+    background:
+        var(--white);
+
+    color:
+        var(--dark);
+
+    font-size:
+        1rem;
+}
+
+.menu-btn {
+    display:
+        none;
+}
+
+
+/* =========================================================
+   07. HERO
+   ========================================================= */
+
+.hero {
+    min-height:
+        690px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    color:
+        var(--white);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(20,11,9,0.92),
+            rgba(20,11,9,0.68),
+            rgba(20,11,9,0.10)
+        ),
+        url("https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=2200&q=90")
+        center
+        / cover
+        no-repeat;
+}
+
+.hero-content {
+    max-width:
+        730px;
+
+    padding:
+        100px 0;
+}
+
+.hero .eyebrow {
+    color:
+        var(--gold-light);
+}
+
+.hero h1 {
+    margin:
+        15px 0 18px;
+
+    font-size:
+        clamp(
+            2.8rem,
+            7vw,
+            5.6rem
+        );
+}
+
+.hero-text {
+    max-width:
+        620px;
+
+    color:
+        #f1e5de;
+
+    font-size:
+        1.05rem;
+}
+
+.hero-actions {
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        10px;
+
+    margin-top:
+        28px;
+}
+
+.hero-note {
+    margin-top:
+        20px;
+
+    color:
+        #efd8a8;
+
+    font-size:
+        0.8rem;
+}
+
+
+/* =========================================================
+   08. TRUST STRIP
+   ========================================================= */
+
+.trust-strip {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    background:
+        var(--cream);
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+.trust-item {
+    padding:
+        24px 12px;
+
+    text-align:
+        center;
+
+    border-right:
+        1px solid var(--line);
+}
+
+.trust-item:last-child {
+    border-right:
+        0;
+}
+
+.trust-item strong {
+    display:
+        block;
+
+    margin-bottom:
+        3px;
+
+    font-size:
+        0.9rem;
+}
+
+.trust-item span {
+    color:
+        var(--muted);
+
+    font-size:
+        0.72rem;
+}
+
+
+/* =========================================================
+   09. COLLECTION CATEGORIES
+   ========================================================= */
+
+.category-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap:
+        17px;
+}
+
+.category-card {
+    position:
+        relative;
+
+    height:
+        330px;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        var(--radius);
+
+    background:
+        var(--cream);
+}
+
+.category-card img {
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    transition:
+        transform 0.45s ease;
+}
+
+.category-card:hover img {
+    transform:
+        scale(1.06);
+}
+
+.category-overlay {
+    position:
+        absolute;
+
+    inset:
+        auto 0 0 0;
+
+    padding:
+        65px 18px 18px;
+
+    color:
+        var(--white);
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.78)
+        );
+}
+
+.category-overlay h3 {
+    margin:
+        0 0 5px;
+
+    font-size:
+        1.35rem;
+}
+
+.category-overlay span {
+    font-size:
+        0.78rem;
+}
+
+
+/* =========================================================
+   10. SHOP
+   ========================================================= */
+
+.shop-section {
+    background:
+        var(--cream);
+}
+
+.shop-toolbar {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        15px;
+
+    margin-bottom:
+        25px;
+}
+
+.search-box {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    min-width:
+        290px;
+
+    padding:
+        11px 13px;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        6px;
+}
+
+.search-box input {
+    width:
+        100%;
+
+    border:
+        0;
+
+    outline:
+        0;
+
+    background:
+        transparent;
+}
+
+.filter-list {
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        7px;
+}
+
+.filter-btn {
+    padding:
+        8px 13px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        20px;
+
+    background:
+        var(--white);
+
+    font-size:
+        0.75rem;
+}
+
+.filter-btn.active {
+    background:
+        var(--dark);
+
+    color:
+        var(--white);
+
+    border-color:
+        var(--dark);
+}
+
+.product-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap:
+        18px;
+}
+
+.product-card {
+    overflow:
+        hidden;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        0 2px 0 rgba(0,0,0,0.01);
+}
+
+.product-image {
+    position:
+        relative;
+
+    aspect-ratio:
+        3 / 4;
+
+    overflow:
+        hidden;
+
+    background:
+        var(--cream-2);
+}
+
+.product-image img {
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    transition:
+        transform 0.4s ease;
+}
+
+.product-card:hover .product-image img {
+    transform:
+        scale(1.045);
+}
+
+.product-badge {
+    position:
+        absolute;
+
+    top:
+        10px;
+
+    left:
+        10px;
+
+    padding:
+        5px 9px;
+
+    background:
+        var(--gold);
+
+    color:
+        var(--dark);
+
+    font-size:
+        0.6rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.08em;
+
+    text-transform:
+        uppercase;
+}
+
+.product-body {
+    padding:
+        16px;
+}
+
+.product-category {
+    color:
+        var(--wine);
+
+    font-size:
+        0.62rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.12em;
+
+    text-transform:
+        uppercase;
+}
+
+.product-body h3 {
+    margin:
+        6px 0;
+
+    font-size:
+        1.12rem;
+}
+
+.product-description {
+    min-height:
+        42px;
+
+    margin-bottom:
+        14px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        0.78rem;
+}
+
+.product-actions {
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        7px;
+}
+
+.product-status {
+    margin-top:
+        12px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        0.76rem;
+}
+
+.empty-state {
+    grid-column:
+        1 / -1;
+
+    padding:
+        50px 20px;
+
+    text-align:
+        center;
+
+    color:
+        var(--muted);
+}
+
+
+/* =========================================================
+   11. CUSTOM ORDER SECTION
+   ========================================================= */
+
+.custom-section {
+    padding:
+        0;
+}
+
+.custom-wrapper {
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    min-height:
+        520px;
+
+    background:
+        var(--dark);
+
+    color:
+        var(--white);
+}
+
+.custom-image {
+    min-height:
+        520px;
+
+    background:
+        url("https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1400&q=90")
+        center
+        / cover
+        no-repeat;
+}
+
+.custom-content {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        center;
+
+    align-items:
+        flex-start;
+
+    padding:
+        70px;
+}
+
+.custom-content .eyebrow {
+    color:
+        var(--gold);
+}
+
+.custom-content h2 {
+    margin:
+        10px 0 18px;
+
+    font-size:
+        clamp(
+            2rem,
+            4vw,
+            3.2rem
+        );
+}
+
+.custom-content p {
+    max-width:
+        520px;
+
+    color:
+        #d9c9c0;
+}
+
+
+/* =========================================================
+   12. GALLERY
+   ========================================================= */
+
+.gallery-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        14px;
+}
+
+.gallery-item {
+    position:
+        relative;
+
+    aspect-ratio:
+        4 / 5;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        8px;
+
+    cursor:
+        pointer;
+
+    background:
+        var(--cream);
+}
+
+.gallery-item img {
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    transition:
+        transform 0.45s ease;
+}
+
+.gallery-item:hover img {
+    transform:
+        scale(1.06);
+}
+
+.gallery-caption {
+    position:
+        absolute;
+
+    right:
+        0;
+
+    bottom:
+        0;
+
+    left:
+        0;
+
+    padding:
+        45px 15px 14px;
+
+    color:
+        var(--white);
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.8)
+        );
+
+    font-size:
+        0.78rem;
+}
+
+
+/* =========================================================
+   13. VIDEO SECTION
+   ========================================================= */
+
+.video-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        18px;
+}
+
+.video-card {
+    overflow:
+        hidden;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        var(--radius);
+}
+
+.video-placeholder {
+    position:
+        relative;
+
+    aspect-ratio:
+        9 / 12;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    color:
+        var(--white);
+
+    background:
+        var(--dark);
+}
+
+.video-placeholder img {
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    opacity:
+        0.62;
+}
+
+.play-button {
+    position:
+        absolute;
+
+    width:
+        60px;
+
+    height:
+        60px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border:
+        1px solid rgba(255,255,255,0.7);
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(0,0,0,0.35);
+
+    font-size:
+        1.3rem;
+}
+
+.video-body {
+    padding:
+        20px;
+}
+
+.video-body h3 {
+    margin:
+        0 0 8px;
+}
+
+.video-body p {
+    margin:
+        0;
+
+    color:
+        var(--muted);
+
+    font-size:
+        0.8rem;
+}
+
+
+/* =========================================================
+   14. HOW TO ORDER
+   ========================================================= */
+
+.steps-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        18px;
+}
+
+.step-card {
+    padding:
+        28px;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        var(--radius);
+}
+
+.step-number {
+    width:
+        46px;
+
+    height:
+        46px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    margin-bottom:
+        20px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--cream);
+
+    color:
+        var(--wine);
+
+    font-weight:
+        800;
+}
+
+.step-card h3 {
+    margin:
+        0 0 9px;
+}
+
+.step-card p {
+    margin:
+        0;
+
+    color:
+        var(--muted);
+
+    font-size:
+        0.82rem;
+}
+
+
+/* =========================================================
+   15. TESTIMONIALS
+   ========================================================= */
+
+.testimonial-section {
+    background:
+        var(--cream);
+}
+
+.testimonial-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        18px;
+}
+
+.testimonial {
+    padding:
+        28px;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        var(--radius);
+}
+
+.stars {
+    color:
+        #b17d2d;
+
+    letter-spacing:
+        0.08em;
+}
+
+.testimonial blockquote {
+    margin:
+        15px 0;
+
+    color:
+        var(--muted);
+
+    font-size:
+        0.88rem;
+}
+  /* CONTINUATION OF PART 1 */
+
+@media (max-width: 760px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .hero {
+    min-height: 720px;
+    padding: 120px 0 70px;
+  }
+
+  .hero-content {
+    width: 100%;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .nav {
+    gap: 10px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+  }
+
+  .brand-name {
+    font-size: 1.05rem;
+  }
+
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .section-heading {
+    margin-bottom: 30px;
+  }
+
+  .section-heading h2 {
+    font-size: 2rem;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .story-grid,
+  .custom-grid,
+  .contact-grid,
+  .order-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-item:first-child {
+    grid-column: span 2;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-question {
+    font-size: .95rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .container {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .product-card-title {
+    font-size: .92rem;
+  }
+
+  .product-card-price {
+    font-size: 1rem;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .category-card {
+    min-height: 150px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-number {
+    font-size: 1.6rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form input,
+  .newsletter-form button {
+    width: 100%;
+  }
+
+  .filter-row {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 8px;
+  }
+
+  .filter-btn {
+    flex: 0 0 auto;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-badge {
+    font-size: .72rem;
+  }
+
+  .floating-whatsapp {
+    width: 52px;
+    height: 52px;
+    right: 16px;
+    bottom: 16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     MOBILE MENU
+============================================================ -->
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <a href="#home" class="brand" onclick="closeMobileMenu()">
+      <span class="brand-mark">E</span>
+      <span class="brand-name">Empress B Stitches</span>
+    </a>
+
+    <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="Close menu">
+      ×
+    </button>
+  </div>
+
+  <div class="mobile-menu-links">
+    <a href="#home" onclick="closeMobileMenu()">Home</a>
+    <a href="#collections" onclick="closeMobileMenu()">Collections</a>
+    <a href="#about" onclick="closeMobileMenu()">About</a>
+    <a href="#custom" onclick="closeMobileMenu()">Custom Orders</a>
+    <a href="#gallery" onclick="closeMobileMenu()">Gallery</a>
+    <a href="#videos" onclick="closeMobileMenu()">Videos</a>
+    <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  </div>
+
+  <a
+    class="btn btn-primary mobile-menu-order"
+    href="#custom"
+    onclick="closeMobileMenu()"
+  >
+    Request a Dress
+  </a>
+</div>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+
+<header class="site-header" id="siteHeader">
+
+  <div class="container nav">
+
+    <a href="#home" class="brand">
+      <span class="brand-mark">E</span>
+      <span class="brand-text">
+        <span class="brand-name">Empress B Stitches</span>
+        <span class="brand-subtitle">African Luxury Fashion</span>
+      </span>
+    </a>
+
+    <nav class="nav-links">
+
+      <a href="#home">Home</a>
+
+      <a href="#collections">Collections</a>
+
+      <a href="#about">About</a>
+
+      <a href="#custom">Custom Order</a>
+
+      <a href="#gallery">Gallery</a>
+
+      <a href="#videos">Videos</a>
+
+      <a href="#faq">FAQ</a>
+
+      <a href="#contact">Contact</a>
+
+    </nav>
+
+    <div class="nav-actions">
+
+      <button
+        class="icon-btn"
+        type="button"
+        onclick="openSearch()"
+        aria-label="Search"
+      >
+        🔍
+      </button>
+
+      <button
+        class="icon-btn"
+        type="button"
+        onclick="openAccountModal()"
+        aria-label="Account"
+      >
+        ♡
+      </button>
+
+      <a
+        href="#custom"
+        class="btn btn-primary nav-order-btn"
+      >
+        Order
+      </a>
+
+      <button
+        class="mobile-menu-button"
+        type="button"
+        onclick="openMobileMenu()"
+        aria-label="Open menu"
+      >
+        ☰
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+
+<main id="home">
+
+<section class="hero">
+
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-inner">
+
+    <div class="hero-content">
+
+      <span class="hero-badge">
+        ✦ HANDCRAFTED AFRICAN FASHION
+      </span>
+
+      <h1>
+        Elegance
+        <span>Made For You.</span>
+      </h1>
+
+      <p>
+        Discover beautiful African-inspired fashion designed with
+        confidence, elegance and attention to every detail.
+      </p>
+
+      <div class="hero-actions">
+
+        <a
+          href="#collections"
+          class="btn btn-primary"
+        >
+          Explore Collection
+        </a>
+
+        <a
+          href="#custom"
+          class="btn btn-outline"
+        >
+          Create Your Dress
+        </a>
+
+      </div>
+
+      <div class="hero-trust">
+
+        <div class="hero-trust-item">
+          <strong>✦</strong>
+          <span>Made with care</span>
+        </div>
+
+        <div class="hero-trust-item">
+          <strong>✦</strong>
+          <span>Custom designs</span>
+        </div>
+
+        <div class="hero-trust-item">
+          <strong>✦</strong>
+          <span>Direct WhatsApp ordering</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ============================================================
+     QUICK STATS
+============================================================ -->
+
+<section class="stats-section">
+
+  <div class="container">
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Made With Care</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">Design Possibilities</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Online Enquiries</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">♡</div>
+        <div class="stat-label">Designed For You</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ============================================================
+     COLLECTIONS
+============================================================ -->
+
+<section class="section" id="collections">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div>
+        <span class="eyebrow">OUR COLLECTION</span>
+
+        <h2>
+          Find Your
+          <em>Signature Look</em>
+        </h2>
+      </div>
+
+      <p>
+        Browse our fashion categories and discover a style
+        that speaks to you.
+      </p>
+
+    </div>
+
+    <div class="category-grid">
+
+      <button
+        class="category-card"
+        onclick="filterProducts('all')"
+      >
+        <span class="category-icon">✦</span>
+        <span class="category-title">All Designs</span>
+        <span class="category-description">
+          Explore everything
+        </span>
+      </button>
+
+      <button
+        class="category-card"
+        onclick="filterProducts('gown')"
+      >
+        <span class="category-icon">♕</span>
+        <span class="category-title">Elegant Gowns</span>
+        <span class="category-description">
+          For unforgettable moments
+        </span>
+      </button>
+
+      <button
+        class="category-card"
+        onclick="filterProducts('asoebi')"
+      >
+        <span class="category-icon">✦</span>
+        <span class="category-title">Aso Ebi</span>
+        <span class="category-description">
+          Celebrate in style
+        </span>
+      </button>
+
+      <button
+        class="category-card"
+        onclick="filterProducts('casual')"
+      >
+        <span class="category-icon">♡</span>
+        <span class="category-title">Casual</span>
+        <span class="category-description">
+          Everyday confidence
+        </span>
+      </button>
+
+      <button
+        class="category-card"
+        onclick="filterProducts('traditional')"
+      >
+        <span class="category-icon">◈</span>
+        <span class="category-title">Traditional</span>
+        <span class="category-description">
+          African beauty
+        </span>
+      </button>
+
+      <button
+        class="category-card"
+        onclick="filterProducts('bridal')"
+      >
+        <span class="category-icon">♡</span>
+        <span class="category-title">Bridal</span>
+        <span class="category-description">
+          Your special day
+        </span>
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ============================================================
+     PRODUCTS
+============================================================ -->
+
+<section class="section section-soft" id="shop">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div>
+
+        <span class="eyebrow">
+          FEATURED DESIGNS
+        </span>
+
+        <h2>
+          Beautiful Pieces,
+          <em>Beautiful You</em>
+        </h2>
+
+      </div>
+
+      <p>
+        Every design can be discussed and customized through
+        WhatsApp before you place your order.
+      </p>
+
+    </div>
+
+    <div class="shop-toolbar">
+
+      <div class="filter-row">
+
+        <button
+          class="filter-btn active"
+          data-filter="all"
+          onclick="filterProducts('all')"
+        >
+          All
+        </button>
+
+        <button
+          class="filter-btn"
+          data-filter="gown"
+          onclick="filterProducts('gown')"
+        >
+          Gowns
+        </button>
+
+        <button
+          class="filter-btn"
+          data-filter="asoebi"
+          onclick="filterProducts('asoebi')"
+        >
+          Aso Ebi
+        </button>
+
+        <button
+          class="filter-btn"
+          data-filter="casual"
+          onclick="filterProducts('casual')"
+        >
+          Casual
+        </button>
+
+        <button
+          class="filter-btn"
+          data-filter="traditional"
+          onclick="filterProducts('traditional')"
+        >
+          Traditional
+        </button>
+
+        <button
+          class="filter-btn"
+          data-filter="bridal"
+          onclick="filterProducts('bridal')"
+        >
+          Bridal
+        </button>
+
+      </div>
+
+      <button
+        class="search-products-btn"
+        onclick="openSearch()"
+      >
+        🔍 Search Designs
+      </button>
+
+    </div>
+
+    <div
+      class="product-grid"
+      id="productGrid"
+    >
+
+      <article
+        class="product-card"
+        data-category="gown"
+        data-name="Royal Wine Evening Gown"
+      >
+
+        <div class="product-image">
+
+          <div class="placeholder-fashion">
+            <span>EM</span>
+            <small>YOUR DRESS PHOTO</small>
+          </div>
+
+          <span class="product-badge">
+            Featured
+          </span>
+
+          <button
+            class="product-heart"
+            onclick="toggleFavourite(this)"
+            aria-label="Favourite"
+          >
+            ♡
+          </button>
+
+        </div>
+
+        <div class="product-info">
+
+          <span class="product-category">
+            Evening Gown
+          </span>
+
+          <h3 class="product-card-title">
+            Royal Wine Evening Gown
+          </h3>
+
+          <p>
+            Elegant fitted design with African-inspired
+            detailing.
+          </p>
+
+          <div class="product-bottom">
+
+            <span class="product-price">
+              Ask for price
+            </span>
+
+            <button
+              class="text-btn"
+              onclick="requestProduct('Royal Wine Evening Gown')"
+            >
+              Enquire →
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+      <article
+        class="product-card"
+        data-category="asoebi"
+        data-name="Luxury Aso Ebi Dress"
+      >
+
+        <div class="product-image">
+
+          <div class="placeholder-fashion">
+            <span>EB</span>
+            <small>YOUR DRESS PHOTO</small>
+          </div>
+
+          <span class="product-badge">
+            Popular
+          </span>
+
+          <button
+            class="product-heart"
+            onclick="toggleFavourite(this)"
+            aria-label="Favourite"
+          >
+            ♡
+          </button>
+
+        </div>
+
+        <div class="product-info">
+
+          <span class="product-category">
+            Aso Ebi
+          </span>
+
+          <h3 class="product-card-title">
+            Luxury Aso Ebi Dress
+          </h3>
+
+          <p>
+            A statement outfit for weddings and special events.
+          </p>
+
+          <div class="product-bottom">
+
+            <span class="product-price">
+              Ask for price
+            </span>
+
+            <button
+              class="text-btn"
+              onclick="requestProduct('Luxury Aso Ebi Dress')"
+            >
+              Enquire →
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+      <article
+        class="product-card"
+        data-category="traditional"
+        data-name="African Heritage Dress"
+      >
+
+        <div class="product-image">
+
+          <div class="placeholder-fashion">
+            <span>AF</span>
+            <small>YOUR DRESS PHOTO</small>
+          </div>
+
+          <button
+            class="product-heart"
+            onclick="toggleFavourite(this)"
+            aria-label="Favourite"
+          >
+            ♡
+          </button>
+
+        </div>
+
+        <div class="product-info">
+
+          <span class="product-category">
+            Traditional
+          </span>
+
+          <h3 class="product-card-title">
+            African Heritage Dress
+          </h3>
+
+          <p>
+            A beautiful design inspired by African elegance.
+          </p>
+
+          <div class="product-bottom">
+
+            <span class="product-price">
+              Ask for price
+            </span>
+
+            <button
+              class="text-btn"
+              onclick="requestProduct('African Heritage Dress')"
+            >
+              Enquire →
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+      <article
+        class="product-card"
+        data-category="casual"
+        data-name="Modern African Casual"
+      >
+
+        <div class="product-image">
+
+          <div class="placeholder-fashion">
+            <span>MC</span>
+            <small>YOUR DRESS PHOTO</small>
+          </div>
+
+          <button
+            class="product-heart"
+            onclick="toggleFavourite(this)"
+            aria-label="Favourite"
+          >
+            ♡
+          </button>
+
+        </div>
+
+        <div class="product-info">
+
+          <span class="product-category">
+            Casual
+          </span>
+
+          <h3 class="product-card-title">
+            Modern African Casual
+          </h3>
+
+          <p>
+            Comfortable fashion with a stylish African touch.
+          </p>
+
+          <div class="product-bottom">
+
+            <span class="product-price">
+              Ask for price
+            </span>
+
+            <button
+              class="text-btn"
+              onclick="requestProduct('Modern African Casual')"
+            >
+              Enquire →
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+      <article
+        class="product-card"
+        data-category="bridal"
+        data-name="Empress Bridal Design"
+      >
+
+        <div class="product-image">
+
+          <div class="placeholder-fashion">
+            <span>BR</span>
+            <small>YOUR DRESS PHOTO</small>
+          </div>
+
+          <span class="product-badge">
+            Bridal
+          </span>
+
+          <button
+            class="product-heart"
+            onclick="toggleFavourite(this)"
+            aria-label="Favourite"
+          >
+            ♡
+          </button>
+
+        </div>
+
+        <div class="product-info">
+
+          <span class="product-category">
+            Bridal
+          </span>
+
+          <h3 class="product-card-title">
+            Empress Bridal Design
+          </h3>
+
+          <p>
+            A graceful bridal design created for your special day.
+          </p>
+
+          <div class="product-bottom">
+
+            <span class="product-price">
+              Ask for price
+            </span>
+
+            <button
+              class="text-btn"
+              onclick="requestProduct('Empress Bridal Design')"
+            >
+              Enquire →
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+      <article
+        class="product-card"
+        data-category="gown"
+        data-name="Golden Celebration Gown"
+      >
+
+        <div class="product-image">
+
+          <div class="placeholder-fashion">
+            <span>GC</span>
+            <small>YOUR DRESS PHOTO</small>
+          </div>
+
+          <span class="product-badge">
+            New
+          </span>
+
+          <button
+            class="product-heart"
+            onclick="toggleFavourite(this)"
+            aria-label="Favourite"
+          >
+            ♡
+          </button>
+
+        </div>
+
+        <div class="product-info">
+
+          <span class="product-category">
+            Gown
+          </span>
+
+          <h3 class="product-card-title">
+            Golden Celebration Gown
+          </h3>
+
+          <p>
+            Designed to make you feel confident and unforgettable.
+          </p>
+
+          <div class="product-bottom">
+
+            <span class="product-price">
+              Ask for price
+            </span>
+
+            <button
+              class="text-btn"
+              onclick="requestProduct('Golden Celebration Gown')"
+            >
+              Enquire →
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <div
+      class="empty-products"
+      id="emptyProducts"
+      style="display:none;"
+    >
+      <div class="empty-icon">♡</div>
+      <h3>No designs found</h3>
+      <p>
+        Try another category or contact us for a custom design.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ============================================================
+     ABOUT / STORY
+============================================================ -->
+
+<section class="section" id="about">
+
+  <div class="container">
+
+    <div class="story-grid">
+
+      <div class="story-visual">
+
+        <div class="story-image-placeholder">
+
+          <div>
+            <span>EMPRESS B</span>
+            <small>
+              Fashion • Culture • Elegance
+            </small>
+          </div>
+
+        </div>
+
+        <div class="story-floating-card">
+
+          <strong>Made For You</strong>
+
+          <span>
+            Your style. Your measurements. Your story.
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="story-content">
+
+        <span class="eyebrow">
+          OUR STORY
+        </span>
+
+        <h2>
+          Fashion That Lets
+   You Wear Your Story</h2>
+
+        <p>
+          At Empress B Stitches, every outfit is created to make you feel confident,
+          elegant and completely yourself. We blend African fashion, modern elegance
+          and careful craftsmanship to create pieces made specially for you.
+        </p>
+
+        <p>
+          Whether you need an outfit for a wedding, birthday, church event,
+          traditional ceremony, dinner, photoshoot or everyday luxury, we are here
+          to bring your idea to life.
+        </p>
+
+        <div class="story-points">
+          <div class="story-point">
+            <span class="story-point-icon">✦</span>
+            <div>
+              <strong>Made For You</strong>
+              <small>Your measurements. Your style. Your story.</small>
+            </div>
+          </div>
+
+          <div class="story-point">
+            <span class="story-point-icon">✦</span>
+            <div>
+              <strong>African Luxury</strong>
+              <small>Beautiful designs inspired by African culture.</small>
+            </div>
+          </div>
+
+          <div class="story-point">
+            <span class="story-point-icon">✦</span>
+            <div>
+              <strong>Attention To Detail</strong>
+              <small>Every stitch is created with care.</small>
+            </div>
+          </div>
+        </div>
+
+        <a href="#custom-order" class="primary-btn">
+          Create My Outfit
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SERVICES
+========================================================= -->
+
+<section class="section" id="services">
+
+  <div class="container">
+
+    <div class="section-heading">
+      <span class="eyebrow">WHAT WE DO</span>
+
+      <h2>
+        Fashion Services Designed
+        <span>For You</span>
+      </h2>
+
+      <p>
+        From the first idea to the final fitting, we make your fashion experience
+        simple, personal and beautiful.
+      </p>
+    </div>
+
+    <div class="service-grid">
+
+      <article class="service-card">
+        <div class="service-icon">✂</div>
+        <h3>Custom Sewing</h3>
+        <p>
+          Have a design in mind? Send us your idea and we can create a beautiful
+          outfit according to your measurements and preferences.
+        </p>
+        <a href="#custom-order">Request Design →</a>
+      </article>
+
+      <article class="service-card">
+        <div class="service-icon">♕</div>
+        <h3>Luxury Occasion Wear</h3>
+        <p>
+          Elegant outfits for weddings, birthdays, traditional ceremonies,
+          celebrations, dinners and special events.
+        </p>
+        <a href="#collections">Explore Styles →</a>
+      </article>
+
+      <article class="service-card">
+        <div class="service-icon">♡</div>
+        <h3>Bridal &amp; Traditional</h3>
+        <p>
+          Make your special day unforgettable with a carefully designed outfit
+          created around your personality and occasion.
+        </p>
+        <a href="#custom-order">Start Your Order →</a>
+      </article>
+
+      <article class="service-card">
+        <div class="service-icon">◈</div>
+        <h3>Style Consultation</h3>
+        <p>
+          Not sure what design will suit you? Tell us about your event and we can
+          discuss suitable styles with you on WhatsApp.
+        </p>
+        <a href="#contact">Talk To Us →</a>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     WHY CHOOSE US
+========================================================= -->
+
+<section class="section section-soft" id="why-us">
+
+  <div class="container">
+
+    <div class="two-column">
+
+      <div>
+        <span class="eyebrow">WHY EMPRESS B STITCHES</span>
+
+        <h2>
+          More Than A Dress.
+          <span>It Is Your Story.</span>
+        </h2>
+
+        <p class="lead">
+          We believe clothing should not simply fit your body. It should reflect
+          your personality, your confidence and the moment you are preparing for.
+        </p>
+      </div>
+
+      <div class="benefit-list">
+
+        <div class="benefit">
+          <span>01</span>
+          <div>
+            <h3>Personal Attention</h3>
+            <p>
+              We listen to what you want before creating your outfit.
+            </p>
+          </div>
+        </div>
+
+        <div class="benefit">
+          <span>02</span>
+          <div>
+            <h3>Beautiful Finishing</h3>
+            <p>
+              We pay attention to details that make an outfit look polished.
+            </p>
+          </div>
+        </div>
+
+        <div class="benefit">
+          <span>03</span>
+          <div>
+            <h3>Made For Your Occasion</h3>
+            <p>
+              Your outfit is planned around where you are going and how you want
+              to look.
+            </p>
+          </div>
+        </div>
+
+        <div class="benefit">
+          <span>04</span>
+          <div>
+            <h3>Easy Ordering</h3>
+            <p>
+              No complicated payment system. Discuss your order with us directly
+              on WhatsApp.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     CUSTOM ORDER
+========================================================= -->
+
+<section class="section custom-order-section" id="custom-order">
+
+  <div class="container">
+
+    <div class="custom-order-box">
+
+      <div class="custom-copy">
+
+        <span class="eyebrow">YOUR IDEA • YOUR OUTFIT</span>
+
+        <h2>
+          Have A Design
+          <span>In Mind?</span>
+        </h2>
+
+        <p>
+          You don't have to choose from our displayed designs. You can send us
+          your own inspiration and tell us exactly what you want.
+        </p>
+
+        <ul class="check-list">
+          <li>Send your inspiration picture</li>
+          <li>Tell us the occasion</li>
+          <li>Discuss your preferred fabric</li>
+          <li>Share your measurements</li>
+          <li>Receive a response on WhatsApp</li>
+        </ul>
+
+        <button
+          class="primary-btn"
+          type="button"
+          onclick="openCustomOrder()">
+          Start A Custom Order
+        </button>
+
+      </div>
+
+      <div class="custom-visual">
+
+        <div class="custom-card">
+          <span class="custom-card-small">EMB</span>
+          <strong>Designed</strong>
+          <strong>For You</strong>
+          <small>Fashion • Culture • Elegance</small>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     HOW TO ORDER
+========================================================= -->
+
+<section class="section" id="how-to-order">
+
+  <div class="container">
+
+    <div class="section-heading">
+      <span class="eyebrow">SIMPLE PROCESS</span>
+
+      <h2>
+        How To
+        <span>Order</span>
+      </h2>
+
+      <p>
+        Ordering your next outfit is easy.
+      </p>
+    </div>
+
+    <div class="steps-grid">
+
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <h3>Choose A Style</h3>
+        <p>
+          Browse our designs or decide what kind of outfit you want.
+        </p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <h3>Contact Us</h3>
+        <p>
+          Click the WhatsApp button and tell us about your outfit.
+        </p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <h3>Discuss Details</h3>
+        <p>
+          We discuss fabric, measurements, style, timing and other details.
+        </p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">04</div>
+        <h3>Get Your Outfit</h3>
+        <p>
+          Once everything is agreed, your beautiful outfit can be created.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     GALLERY
+========================================================= -->
+
+<section class="section section-soft" id="gallery">
+
+  <div class="container">
+
+    <div class="section-heading">
+      <span class="eyebrow">OUR WORLD</span>
+
+      <h2>
+        Fashion
+        <span>Gallery</span>
+      </h2>
+
+      <p>
+        Add your best fashion pictures here as your collection grows.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+
+      <div class="gallery-item gallery-placeholder">
+        <div>
+          <span>EMPRESS B</span>
+          <strong>Luxury</strong>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-placeholder">
+        <div>
+          <span>EMPRESS B</span>
+          <strong>Elegance</strong>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-placeholder">
+        <div>
+          <span>EMPRESS B</span>
+          <strong>African</strong>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-placeholder">
+        <div>
+          <span>EMPRESS B</span>
+          <strong>Culture</strong>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-placeholder">
+        <div>
+          <span>EMPRESS B</span>
+          <strong>Beauty</strong>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-placeholder">
+        <div>
+          <span>EMPRESS B</span>
+          <strong>Style</strong>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="center-button">
+      <button class="outline-btn" type="button" onclick="openCustomOrder()">
+        Send Your Own Inspiration
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     VIDEO SECTION
+========================================================= -->
+
+<section class="section" id="videos">
+
+  <div class="container">
+
+    <div class="section-heading">
+      <span class="eyebrow">BEHIND THE STYLE</span>
+
+      <h2>
+        Fashion
+        <span>Videos</span>
+      </h2>
+
+      <p>
+        You can add your TikTok, Instagram or other fashion videos here later.
+      </p>
+    </div>
+
+    <div class="video-grid">
+
+      <div class="video-placeholder">
+        <div class="play-circle">▶</div>
+        <h3>Your Fashion Video</h3>
+        <p>Add your video link when you are ready.</p>
+      </div>
+
+      <div class="video-placeholder">
+        <div class="play-circle">▶</div>
+        <h3>Behind The Scenes</h3>
+        <p>Show customers how your outfits are made.</p>
+      </div>
+
+      <div class="video-placeholder">
+        <div class="play-circle">▶</div>
+        <h3>New Collection</h3>
+        <p>Show your newest designs here.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     TESTIMONIALS
+========================================================= -->
+
+<section class="section section-soft" id="testimonials">
+
+  <div class="container">
+
+    <div class="section-heading">
+      <span class="eyebrow">CUSTOMER LOVE</span>
+
+      <h2>
+        What Our
+        <span>Clients Say</span>
+      </h2>
+    </div>
+
+    <div class="testimonial-grid">
+
+      <article class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>
+          “The attention to detail is beautiful. I loved how the outfit came
+          together.”
+        </p>
+        <strong>— Empress B Client</strong>
+      </article>
+
+      <article class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>
+          “The design looked elegant and fitted exactly the way I wanted.”
+        </p>
+        <strong>— Empress B Client</strong>
+      </article>
+
+      <article class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>
+          “The communication was easy and I loved the final result.”
+        </p>
+        <strong>— Empress B Client</strong>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     FAQ
+========================================================= -->
+
+<section class="section" id="faq">
+
+  <div class="container faq-container">
+
+    <div class="section-heading">
+      <span class="eyebrow">QUESTIONS</span>
+
+      <h2>
+        Frequently Asked
+        <span>Questions</span>
+      </h2>
+    </div>
+
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>How do I place an order?</summary>
+        <div class="faq-answer">
+          <p>
+            Choose a design or send us your own inspiration, then click the
+            WhatsApp button to discuss your order with us.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I send my own design?</summary>
+        <div class="faq-answer">
+          <p>
+            Yes. You can send an inspiration picture and explain exactly what
+            you would like us to create.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Do you make custom sizes?</summary>
+        <div class="faq-answer">
+          <p>
+            Yes. Custom orders can be discussed based on your measurements and
+            preferred fit.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I ask for the price before ordering?</summary>
+        <div class="faq-answer">
+          <p>
+            Yes. Click the enquiry button and ask for the current price of the
+            design you are interested in.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Do I pay directly on the website?</summary>
+        <div class="faq-answer">
+          <p>
+            No online payment is required through this website. Orders and
+            payment arrangements can be discussed directly with Empress B
+            Stitches.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I contact Empress B Stitches?</summary>
+        <div class="faq-answer">
+          <p>
+            You can contact us through WhatsApp or email using the contact
+            details at the bottom of this website.
+          </p>
+        </div>
+      </details>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     NEWSLETTER / CONTACT CTA
+========================================================= -->
+
+<section class="section contact-cta" id="contact">
+
+  <div class="container">
+
+    <div class="contact-box">
+
+      <span class="eyebrow">LET'S CREATE</span>
+
+      <h2>
+        Ready To Create
+        <span>Your Next Look?</span>
+      </h2>
+
+      <p>
+        Tell us what you have in mind and let's discuss your next beautiful
+        outfit.
+      </p>
+
+      <div class="contact-buttons">
+
+        <button
+          class="primary-btn"
+          type="button"
+          onclick="openWhatsApp('Hello Empress B Stitches, I would like to make an enquiry about an outfit.')">
+          Chat On WhatsApp
+        </button>
+
+        <a
+          class="outline-btn"
+          href="mailto:empressbstitches@gmail.com">
+          Send Email
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="site-footer">
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+
+        <a href="#top" class="footer-logo">
+          EMPRESS <span>B</span>
+        </a>
+
+        <p>
+          African luxury fashion, custom-made with care.
+        </p>
+
+        <div class="footer-socials">
+
+          <a
+            href="https://wa.me/2348140120959"
+            target="_blank"
+            rel="noopener"
+            aria-label="WhatsApp">
+            WA
+          </a>
+
+          <a href="#gallery" aria-label="Gallery">
+            IG
+          </a>
+
+          <a href="#videos" aria-label="Videos">
+            TT
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Explore</h3>
+
+        <a href="#collections">Collections</a>
+        <a href="#about">Our Story</a>
+        <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#faq">FAQ</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Order</h3>
+
+        <a href="#how-to-order">How To Order</a>
+        <a href="#custom-order">Custom Order</a>
+        <a href="#collections">Browse Designs</a>
+        <a href="#contact">Contact Us</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Contact</h3>
+
+        <a href="mailto:empressbstitches@gmail.com">
+          empressbstitches@gmail.com
+        </a>
+
+        <a
+          href="https://wa.me/2348140120959"
+          target="_blank"
+          rel="noopener">
+          WhatsApp Us
+        </a>
+
+        <span>Made with love &amp; African creativity.</span>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © <span id="currentYear"></span> Empress B Stitches.
+        All rights reserved.
+      </p>
+
+      <div>
+        <a href="#top">Back To Top ↑</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- =========================================================
+     WHATSAPP FLOATING BUTTON
+========================================================= -->
+
+<button
+  class="whatsapp-float"
+  type="button"
+  onclick="openWhatsApp('Hello Empress B Stitches, I found your website and I would like to make an enquiry.')"
+  aria-label="Chat with Empress B Stitches on WhatsApp">
+
+  <span class="whatsapp-symbol">WA</span>
+
+  <span class="whatsapp-tooltip">
+    Chat with us
+  </span>
+
+</button>
+
+
+<!-- =========================================================
+     CUSTOM ORDER MODAL
+========================================================= -->
+
+<div
+  class="custom-modal"
+  id="customOrderModal"
+  aria-hidden="true">
+
+  <div
+    class="custom-modal-overlay"
+    onclick="closeCustomOrder()">
+  </div>
+
+  <div
+    class="custom-modal-content"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="customOrderTitle">
+
+    <button
+      class="modal-close"
+      type="button"
+      onclick="closeCustomOrder()"
+      aria-label="Close">
+      ×
+    </button>
+
+    <span class="eyebrow">CUSTOM ORDER</span>
+
+    <h2 id="customOrderTitle">
+      Tell Us About
+      <span>Your Outfit</span>
+    </h2>
+
+    <p>
+      Fill in the details below. When you submit, WhatsApp will open with your
+      enquiry ready to send.
+    </p>
+
+    <form id="customOrderForm">
+
+      <label>
+        Your Name
+        <input
+          type="text"
+          id="orderName"
+          placeholder="Enter your name"
+          required>
+      </label>
+
+      <label>
+        What type of outfit do you need?
+        <select id="orderType" required>
+          <option value="">Select one</option>
+          <option value="Wedding outfit">Wedding outfit</option>
+          <option value="Birthday outfit">Birthday outfit</option>
+          <option value="Traditional outfit">Traditional outfit</option>
+          <option value="Church outfit">Church outfit</option>
+          <option value="Dinner outfit">Dinner outfit</option>
+          <option value="Bridal outfit">Bridal outfit</option>
+          <option value="Casual outfit">Casual outfit</option>
+          <option value="Custom design">Custom design</option>
+          <option value="Other">Other</option>
+        </select>
+      </label>
+
+      <label>
+        Preferred colour
+        <input
+          type="text"
+          id="orderColour"
+          placeholder="Example: wine, gold, black">
+      </label>
+
+      <label>
+        Tell us what you want
+        <textarea
+          id="orderDetails"
+          rows="5"
+          placeholder="Describe your design, fabric, style, occasion or any other details..."
+          required></textarea>
+
+      </label>
+
+      <button
+        type="submit"
+        class="primary-btn full-btn">
+        Send Enquiry On WhatsApp
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+<div
+  class="custom-modal"
+  id="productModal"
+  aria-hidden="true">
+
+  <div
+    class="custom-modal-overlay"
+    onclick="closeProductModal()">
+  </div>
+
+  <div class="custom-modal-content">
+
+    <button
+      class="modal-close"
+      type="button"
+      onclick="closeProductModal()">
+      ×
+    </button>
+
+    <span class="eyebrow">DESIGN ENQUIRY</span>
+
+    <h2 id="productModalTitle">
+      Enquire About
+      <span>This Design</span>
+    </h2>
+
+    <p id="productModalDescription">
+      Ask us about the price, availability, fabric, sizing and customization options.
+    </p>
+
+    <button
+      class="primary-btn full-btn"
+      id="productWhatsAppButton"
+      type="button">
+      Ask For Price On WhatsApp
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+(function () {
+
+  "use strict";
+
+  const CONFIG = window.EMpressBConfig || {};
+
+  const whatsappNumber =
+    String(CONFIG.WHATSAPP_NUMBER || "2348140120959").replace(/\D/g, "");
+
+  const businessEmail =
+    CONFIG.BUSINESS_EMAIL || "empressbstitches@gmail.com";
+
+  window.openWhatsApp = function (message) {
+
+    const finalMessage =
+      message ||
+      "Hello Empress B Stitches, I would like to make an enquiry.";
+
+    const url =
+      "https://wa.me/" +
+      whatsappNumber +
+      "?text=" +
+      encodeURIComponent(finalMessage);
+
+    window.open(url, "_blank", "noopener");
+
+  };
+
+
+  window.openCustomOrder = function () {
+
+    const modal =
+      document.getElementById("customOrderModal");
+
+    if (!modal) return;
+
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+
+  };
+
+
+  window.closeCustomOrder = function () {
+
+    const modal =
+      document.getElementById("customOrderModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+
+  };
+
+
+  window.closeProductModal = function () {
+
+    const modal =
+      document.getElementById("productModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+
+  };
+
+
+  window.requestProduct = function (productName) {
+
+    const modal =
+      document.getElementById("productModal");
+
+    const title =
+      document.getElementById("productModalTitle");
+
+    const description =
+      document.getElementById("productModalDescription");
+
+    const button =
+      document.getElementById("productWhatsAppButton");
+
+    if (!modal) return;
+
+    title.innerHTML =
+      "Enquire About <span>" +
+      String(productName) +
+      "</span>";
+
+    description.textContent =
+      "Ask us about the price, availability, fabric, sizing and customization options for " +
+      productName +
+      ".";
+
+    button.onclick = function () {
+
+      openWhatsApp(
+        "Hello Empress B Stitches, I would like to enquire about " +
+        productName +
+        ". Please can you tell me the price and available options?"
+      );
+
     };
-  </script>
 
-  <!-- Supabase JavaScript library -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  };
 
-  <style>
-    :root {
-      --dark: #201512;
-      --dark-soft: #33231e;
-      --wine: #702d3b;
-      --gold: #d8b16c;
-      --cream: #faf5ed;
-      --paper: #fffdf9;
-      --muted: #82766e;
-      --line: #e9ded1;
-      --green: #1c6b43;
-      --shadow: 0 15px 45px rgba(40, 25, 20, .09);
-      --radius: 18px;
-    }
 
-    * { box-sizing: border-box; }
+  const orderForm =
+    document.getElementById("customOrderForm");
 
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 90px;
-    }
+  if (orderForm) {
 
-    body {
-      margin: 0;
-      background: var(--paper);
-      color: var(--dark);
-      font-family: "DM Sans", sans-serif;
-      line-height: 1.65;
-    }
+    orderForm.addEventListener("submit", function (event) {
 
-    body.modal-open { overflow: hidden; }
+      event.preventDefault();
 
-    img { display: block; max-width: 100%; }
+      const name =
+        document.getElementById("orderName").value.trim();
 
-    button, input, select, textarea {
-      font: inherit;
-    }
+      const type =
+        document.getElementById("orderType").value.trim();
 
-    button, a { -webkit-tap-highlight-color: transparent; }
+      const colour =
+        document.getElementById("orderColour").value.trim();
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+      const details =
+        document.getElementById("orderDetails").value.trim();
 
-    button { cursor: pointer; }
+      if (!name || !type || !details) {
 
-    h1, h2, h3, h4 {
-      font-family: "Playfair Display", serif;
-      line-height: 1.15;
-      font-weight: 500;
-    }
+        alert(
+          "Please fill in your name, outfit type and design details."
+        );
 
-    h1 { font-size: clamp(2.8rem, 6vw, 5.7rem); }
-    h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
-    h3 { font-size: 1.5rem; }
+        return;
 
-    p { margin-top: 0; }
-
-    .container {
-      width: min(1200px, 92%);
-      margin-inline: auto;
-    }
-
-    .eyebrow {
-      color: var(--wine);
-      font-size: .76rem;
-      font-weight: 700;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-    }
-
-    .section {
-      padding: 92px 0;
-    }
-
-    .section-heading {
-      max-width: 720px;
-      margin: 0 auto 42px;
-      text-align: center;
-    }
-
-    .section-heading h2 { margin: 12px 0; }
-
-    .section-heading p {
-      color: var(--muted);
-      max-width: 590px;
-      margin: 0 auto;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      padding: 13px 22px;
-      min-height: 48px;
-      border: 1px solid transparent;
-      border-radius: 4px;
-      background: var(--dark);
-      color: white;
-      font-weight: 600;
-      transition: .2s ease;
-      text-align: center;
-    }
-
-    .btn:hover {
-      background: var(--wine);
-      transform: translateY(-2px);
-    }
-
-    .btn-gold {
-      background: var(--gold);
-      color: var(--dark);
-    }
-
-    .btn-gold:hover {
-      background: #e8c98e;
-      color: var(--dark);
-    }
-
-    .btn-outline {
-      border-color: rgba(255,255,255,.65);
-      background: transparent;
-      color: white;
-    }
-
-    .btn-outline:hover {
-      background: white;
-      color: var(--dark);
-    }
-
-    .btn-light {
-      background: white;
-      color: var(--dark);
-      border-color: var(--line);
-    }
-
-    .btn-small {
-      min-height: 40px;
-      padding: 9px 13px;
-      font-size: .85rem;
-    }
-
-    .announcement {
-      background: var(--dark);
-      color: #f8e8cb;
-      text-align: center;
-      padding: 9px 12px;
-      font-size: .77rem;
-      letter-spacing: .08em;
-    }
-
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255,253,249,.97);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 80px;
-      gap: 20px;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.15;
-      min-width: 170px;
-    }
-
-    .brand-name {
-      font-family: "Playfair Display", serif;
-      font-size: 1.45rem;
-      font-weight: 700;
-      letter-spacing: -.04em;
-    }
-
-    .brand-sub {
-      color: var(--wine);
-      font-size: .62rem;
-      letter-spacing: .19em;
-      text-transform: uppercase;
-      margin-top: 5px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: .86rem;
-    }
-
-    .nav-links a:hover { color: var(--wine); }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .icon-btn {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      background: white;
-      color: var(--dark);
-      font-size: 1.1rem;
-    }
-
-    .icon-btn:hover {
-      border-color: var(--gold);
-      background: var(--cream);
-    }
-
-    .menu-toggle { display: none; }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      min-height: 660px;
-      display: flex;
-      align-items: center;
-      color: white;
-      background:
-        linear-gradient(90deg, rgba(24,15,13,.86) 0%, rgba(24,15,13,.56) 47%, rgba(24,15,13,.1) 100%),
-        url("https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=2000&q=90") center 32%/cover;
-    }
-
-    .hero-content {
-      width: min(730px, 92%);
-      padding: 95px 0;
-    }
-
-    .hero .eyebrow { color: var(--gold); }
-
-    .hero h1 { margin: 18px 0; }
-
-    .hero p {
-      max-width: 530px;
-      color: #f1e8e0;
-      font-size: 1.06rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 28px;
-    }
-
-    .hero-note {
-      margin-top: 28px;
-      font-size: .82rem;
-      color: #f0d8b1;
-    }
-
-    .trust-strip {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      background: var(--cream);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .trust-item {
-      padding: 23px 12px;
-      text-align: center;
-      border-right: 1px solid var(--line);
-    }
-
-    .trust-item:last-child { border-right: 0; }
-
-    .trust-item strong {
-      display: block;
-      font-size: .94rem;
-    }
-
-    .trust-item span {
-      display: block;
-      font-size: .78rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 18px;
-    }
-
-    .category-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 330px;
-      border-radius: 8px;
-      background: var(--cream);
-    }
-
-    .category-card img {
-      width: 100%;
-      height: 330px;
-      object-fit: cover;
-      transition: transform .5s ease;
-    }
-
-    .category-card:hover img { transform: scale(1.06); }
-
-    .category-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: end;
-      padding: 23px;
-      color: white;
-      background: linear-gradient(0deg, rgba(20,12,10,.85), transparent 75%);
-    }
-
-    .category-overlay h3 { margin: 0 0 8px; }
-    .category-overlay span { font-size: .84rem; }
-
-    .shop-section { background: var(--cream); }
-
-    .shop-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 28px;
-    }
-
-    .search-box {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 0 13px;
-      min-width: min(100%, 290px);
-    }
-
-    .search-box input {
-      width: 100%;
-      border: 0;
-      outline: none;
-      padding: 12px 0;
-      background: transparent;
-    }
-
-    .filter-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .filter-btn {
-      padding: 9px 15px;
-      border: 1px solid var(--line);
-      background: white;
-      border-radius: 30px;
-      font-size: .82rem;
-    }
-
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--dark);
-      color: white;
-      border-color: var(--dark);
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(4,minmax(0,1fr));
-      gap: 24px 18px;
-    }
-
-    .product-card {
-      background: white;
-      border: 1px solid #eee5db;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: .25s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
-    }
-
-    .product-image {
-      position: relative;
-      background: #eee4d9;
-      aspect-ratio: 3/4;
-      overflow: hidden;
-    }
-
-    .product-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .45s ease;
-    }
-
-    .product-card:hover .product-image img { transform: scale(1.04); }
-
-    .product-label {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      padding: 6px 10px;
-      background: var(--gold);
-      color: var(--dark);
-      border-radius: 2px;
-      font-size: .68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .product-info { padding: 17px; }
-
-    .product-category {
-      color: var(--wine);
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      font-size: .68rem;
-    }
-
-    .product-info h3 {
-      font-size: 1.12rem;
-      margin: 7px 0;
-    }
-
-    .product-info p {
-      font-size: .83rem;
-      color: var(--muted);
-      min-height: 42px;
-      margin-bottom: 13px;
-    }
-
-    .product-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .product-actions .btn { flex: 1; }
-
-    .empty-state {
-      text-align: center;
-      color: var(--muted);
-      padding: 40px 10px;
-      grid-column: 1/-1;
-    }
-
-    .custom-banner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: var(--dark);
-      color: white;
-      min-height: 460px;
-    }
-
-    .custom-banner-image {
-      min-height: 420px;
-      background: url("https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=85") center/cover;
-    }
-
-    .custom-banner-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding: clamp(30px,6vw,80px);
-    }
-
-    .custom-banner-copy .eyebrow { color: var(--gold); }
-    .custom-banner-copy h2 { margin: 12px 0 20px; }
-    .custom-banner-copy p { color: #ded0c6; }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 14px;
-    }
-
-    .gallery-item {
-      overflow: hidden;
-      position: relative;
-      background: var(--cream);
-      border-radius: 6px;
-      aspect-ratio: 4/5;
-      cursor: pointer;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .45s ease;
-    }
-
-    .gallery-item:hover img { transform: scale(1.06); }
-
-    .gallery-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 25px 17px 15px;
-      color: white;
-      background: linear-gradient(transparent,rgba(0,0,0,.72));
-      font-size: .9rem;
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 20px;
-    }
-
-    .video-card {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .video-card video,
-    .video-card iframe {
-      display: block;
-      width: 100%;
-      aspect-ratio: 9/12;
-      border: 0;
-      object-fit: cover;
-      background: #211713;
-    }
-
-    .video-copy { padding: 17px; }
-    .video-copy h3 { margin: 0 0 7px; font-size: 1.15rem; }
-    .video-copy p { margin: 0; color: var(--muted); font-size: .84rem; }
-
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 25px;
-    }
-
-    .how-card {
-      padding: 30px;
-      border: 1px solid var(--line);
-      background: white;
-      border-radius: 8px;
-    }
-
-    .how-number {
-      width: 46px;
-      height: 46px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--cream);
-      color: var(--wine);
-      font-family: "Playfair Display",serif;
-      font-size: 1.3rem;
-    }
-
-    .how-card h3 { margin: 20px 0 10px; }
-    .how-card p { color: var(--muted); margin-bottom: 0; }
-
-    .testimonials {
-      background: var(--cream);
-    }
-
-    .testimonial-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 18px;
-    }
-
-    .testimonial {
-      padding: 28px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-    }
-
-    .stars {
-      color: #b17d2d;
-      letter-spacing: .13em;
-    }
-
-    .testimonial blockquote {
-      margin: 15px 0;
-      color: #55473f;
-    }
-
-    .testimonial strong { font-size: .9rem; }
-
-    .faq-list {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .faq-list details {
-      padding: 19px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .faq-list summary {
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .faq-list details p {
-      margin: 13px 0 0;
-      color: var(--muted);
-    }
-
-    .newsletter {
-      background: var(--wine);
-      color: white;
-      padding: 70px 0;
-    }
-
-    .newsletter-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 35px;
-    }
-
-    .newsletter h2 { margin: 0 0 10px; }
-    .newsletter p { margin: 0; color: #f0dfe0; }
-
-    .newsletter-form {
-      display: flex;
-      width: min(470px,100%);
-      gap: 8px;
-    }
-
-    .newsletter-form input {
-      flex: 1;
-      min-width: 0;
-      border: 0;
-      border-radius: 4px;
-      padding: 13px;
-    }
-
-    .newsletter-form .btn {
-      background: var(--gold);
-      color: var(--dark);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: .8fr 1.2fr;
-      gap: 50px;
-    }
-
-    .contact-details {
-      display: grid;
-      gap: 19px;
-      margin-top: 28px;
-    }
-
-    .contact-detail strong { display: block; }
-    .contact-detail span, .contact-detail a { color: var(--muted); }
-
-    .contact-form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    .field {
-      display: grid;
-      gap: 7px;
-    }
-
-    .field.full { grid-column: 1/-1; }
-
-    .field label {
-      font-size: .83rem;
-      font-weight: 600;
-    }
-
-    .field input, .field select, .field textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      background: white;
-      outline-color: var(--gold);
-    }
-
-    .field textarea { min-height: 120px; resize: vertical; }
-
-    .footer {
-      padding: 55px 0 20px;
-      background: var(--dark);
-      color: white;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1fr;
-      gap: 35px;
-    }
-
-    .footer h3 {
-      font-family: "DM Sans",sans-serif;
-      font-size: .95rem;
-      margin: 0 0 16px;
-    }
-
-    .footer p, .footer a, .footer li {
-      color: #c9bbb0;
-      font-size: .84rem;
-    }
-
-    .footer ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 9px;
-    }
-
-    .footer a:hover { color: var(--gold); }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #493a33;
-      color: #c9bbb0;
-      font-size: .78rem;
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      right: 19px;
-      bottom: 19px;
-      z-index: 40;
-      display: grid;
-      place-items: center;
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      background: #25d366;
-      color: white;
-      font-size: 1.7rem;
-      box-shadow: 0 5px 22px #0002;
-    }
-
-    .toast {
-      position: fixed;
-      z-index: 200;
-      left: 50%;
-      bottom: 25px;
-      transform: translate(-50%, 30px);
-      background: var(--dark);
-      color: white;
-      padding: 13px 20px;
-      border-radius: 5px;
-      box-shadow: var(--shadow);
-      opacity: 0;
-      pointer-events: none;
-      transition: .25s;
-      width: max-content;
-      max-width: 90%;
-      text-align: center;
-      font-size: .9rem;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translate(-50%,0);
-    }
-
-    .modal {
-      position: fixed;
-      z-index: 100;
-      inset: 0;
-      background: rgba(18,12,10,.68);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      overflow-y: auto;
-    }
-
-    .modal.open { display: flex; }
-
-    .modal-panel {
-      width: min(520px,100%);
-      max-height: 92vh;
-      overflow-y: auto;
-      background: var(--paper);
-      border-radius: 10px;
-      padding: 28px;
-      position: relative;
-      box-shadow: 0 25px 90px #0004;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 13px;
-      right: 13px;
-      border: 0;
-      border-radius: 50%;
-      width: 38px;
-      height: 38px;
-      background: var(--cream);
-      font-size: 1.25rem;
-    }
-
-    .modal-panel h2 {
-      font-size: 2rem;
-      margin: 8px 40px 12px 0;
-    }
-
-    .modal-panel > p {
-      color: var(--muted);
-      font-size: .9rem;
-    }
-
-    .modal-form {
-      display: grid;
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .modal-form input, .modal-form textarea, .modal-form select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      background: white;
-    }
-
-    .modal-switch {
-      margin-top: 18px;
-      text-align: center;
-      font-size: .88rem;
-    }
-
-    .text-link {
-      color: var(--wine);
-      font-weight: 700;
-      text-decoration: underline;
-    }
-
-    .account-box {
-      margin-top: 18px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-    }
-
-    .account-box p { overflow-wrap: anywhere; }
-
-    .lightbox-image {
-      max-width: 100%;
-      max-height: 72vh;
-      margin: auto;
-      object-fit: contain;
-    }
-
-    .status-line {
-      font-size: .82rem;
-      color: var(--muted);
-      margin-top: 12px;
-    }
-
-    .hidden { display: none !important; }
-
-    @media (max-width: 1000px) {
-      .nav-links {
-        gap: 12px;
-        font-size: .8rem;
       }
 
-      .brand { min-width: 145px; }
-      .brand-name { font-size: 1.25rem; }
-      .product-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
-      .category-grid { grid-template-columns: repeat(2,1fr); }
-      .footer-grid { grid-template-columns: repeat(2,1fr); }
+      const message =
+        "Hello Empress B Stitches!%0A%0A" +
+        "I would like to make a custom order.%0A%0A" +
+        "Name: " +
+        encodeURIComponent(name) +
+        "%0A" +
+        "Outfit type: " +
+        encodeURIComponent(type) +
+        "%0A" +
+        "Preferred colour: " +
+        encodeURIComponent(colour || "Not specified") +
+        "%0A" +
+        "Details: " +
+        encodeURIComponent(details);
+
+      window.open(
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        message,
+        "_blank"
+      );
+
+      orderForm.reset();
+      closeCustomOrder();
+
+    });
+
+  }
+
+
+  const year =
+    document.getElementById("currentYear");
+
+  if (year) {
+    year.textContent =
+      new Date().getFullYear();
+  }
+
+
+  document.addEventListener("keydown", function (event) {
+
+    if (event.key === "Escape") {
+
+      closeCustomOrder();
+      closeProductModal();
+
     }
 
-    @media (max-width: 760px) {
-      .section 
+  });
+
+
+  document
+    .querySelectorAll('a[href^="#"]')
+    .forEach(function (link) {
+
+      link.addEventListener("click", function (event) {
+
+        const targetId =
+          link.getAttribute("href");
+
+        if (!targetId || targetId === "#") {
+          return;
+        }
+
+        const target =
+          document.querySelector(targetId);
+
+        if (!target) {
+          return;
+        }
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      });
+
+    });
+
+
+  document
+    .querySelectorAll(".text-btn")
+    .forEach(function (button) {
+
+      if (
+        button.textContent
+          .toLowerCase()
+          .includes("enquire")
+      ) {
+
+        button.addEventListener("click", function () {
+
+          const onclickText =
+            button.getAttribute("onclick") || "";
+
+          const match =
+            onclickText.match(/['"]([^'"]+)['"]/);
+
+          requestProduct(
+            match ? match[1] : "this design"
+          );
+
+        });
+
+      }
+
+    });
+
+
+  console.log(
+    "Empress B Stitches website loaded successfully."
+  );
+
+})();
+
+</script>
+
+</body>
+</html>
