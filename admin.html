@@ -15,65 +15,62 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f7f3f5;
-      color: #222;
+      background: #f7f3f6;
+      color: #241d23;
     }
 
     header {
-      background: #111;
+      background: #21141f;
       color: white;
-      padding: 20px;
-      text-align: center;
+      padding: 18px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     header h1 {
-      margin: 0;
-      letter-spacing: 2px;
+      margin: 0 0 5px;
+      font-size: 22px;
     }
 
     header p {
-      margin: 6px 0 0;
-      opacity: 0.8;
+      margin: 0;
+      opacity: .8;
+      font-size: 13px;
     }
 
     .container {
-      width: 92%;
-      max-width: 850px;
-      margin: 25px auto;
+      max-width: 1000px;
+      margin: auto;
+      padding: 18px;
     }
 
-    .card {
+    .login-box,
+    .dashboard {
       background: white;
-      padding: 22px;
-      border-radius: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 5px 25px rgba(0,0,0,.07);
+    }
+
+    .login-box {
+      max-width: 450px;
+      margin: 50px auto;
     }
 
     h2 {
       margin-top: 0;
     }
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
     input,
     textarea,
-    button {
+    select {
       width: 100%;
       padding: 13px;
-      margin-top: 7px;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-
-    input,
-    textarea {
       border: 1px solid #ddd;
-      background: white;
+      border-radius: 10px;
+      margin: 7px 0 12px;
+      font-size: 15px;
     }
 
     textarea {
@@ -82,64 +79,116 @@
     }
 
     button {
-      border: none;
-      background: #111;
-      color: white;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
       cursor: pointer;
       font-weight: bold;
+      margin: 4px;
     }
 
-    button:disabled {
-      opacity: 0.5;
+    .primary {
+      background: #8b285f;
+      color: white;
     }
 
-    .logout {
-      background: #b42318;
+    .dark {
+      background: #241d23;
+      color: white;
+    }
+
+    .danger {
+      background: #c62828;
+      color: white;
+    }
+
+    .light {
+      background: #eee;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 5px 0 15px;
+    }
+
+    .tabs button {
+      white-space: nowrap;
+    }
+
+    .tab {
+      display: none;
+    }
+
+    .tab.active {
+      display: block;
+    }
+
+    .card {
+      border: 1px solid #eee;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 15px 0;
+      background: #fff;
+    }
+
+    .card img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 15px;
     }
 
     .message {
-      margin-top: 15px;
       padding: 12px;
-      border-radius: 8px;
-      background: #f1f1f1;
+      border-radius: 10px;
+      margin: 12px 0;
       display: none;
     }
 
-    .product {
-      border: 1px solid #eee;
-      border-radius: 14px;
-      padding: 15px;
-      margin-top: 15px;
+    .success {
+      background: #e5f7e9;
+      color: #17652a;
     }
 
-    .product img {
-      width: 100%;
-      max-height: 350px;
-      object-fit: cover;
-      border-radius: 12px;
-    }
-
-    .product h3 {
-      margin-bottom: 5px;
-    }
-
-    .price {
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .available {
-      color: green;
-      font-weight: bold;
-    }
-
-    .unavailable {
-      color: #b42318;
-      font-weight: bold;
+    .error {
+      background: #fde8e8;
+      color: #9b1c1c;
     }
 
     .hidden {
-      display: none;
+      display: none !important;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      background: #eee;
+    }
+
+    .status.active {
+      background: #dff5e5;
+      color: #17652a;
+    }
+
+    .status.inactive {
+      background: #f9dddd;
+      color: #8a1c1c;
     }
   </style>
 </head>
@@ -147,420 +196,920 @@
 <body>
 
 <header>
-  <h1>EMPRESS B</h1>
-  <p>Admin Dashboard</p>
+  <h1>EMPRESS B — Admin Dashboard</h1>
+  <p>Manage your fashion website from your phone</p>
 </header>
 
 <div class="container">
 
   <!-- LOGIN -->
-  <div id="loginBox" class="card">
+  <div id="loginBox" class="login-box">
     <h2>Admin Login</h2>
 
-    <input
-      type="email"
-      id="email"
-      placeholder="Admin email"
-      autocomplete="email"
-    >
+    <p class="small">
+      Sign in with your Empress B administrator account.
+    </p>
 
-    <input
-      type="password"
-      id="password"
-      placeholder="Password"
-      autocomplete="current-password"
-    >
+    <input id="loginEmail" type="email" placeholder="Admin email">
 
-    <button onclick="login()">Login</button>
+    <input id="loginPassword" type="password" placeholder="Password">
+
+    <button class="primary" onclick="adminLogin()">Login</button>
 
     <div id="loginMessage" class="message"></div>
   </div>
 
+
   <!-- DASHBOARD -->
-  <div id="dashboard" class="hidden">
+  <div id="dashboard" class="dashboard hidden">
 
-    <div class="card">
-      <h2>Welcome, Empress B 👑</h2>
-      <p>You are successfully logged in as administrator.</p>
+    <h2>Welcome, Empress B 👑</h2>
 
-      <button class="logout" onclick="logout()">Logout</button>
+    <p class="small">
+      From here you can control what visitors see on your website.
+    </p>
+
+    <button class="dark" onclick="adminLogout()">Sign Out</button>
+
+    <div id="mainMessage" class="message"></div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="primary" onclick="showTab('productsTab')">🛍️ Products</button>
+      <button class="light" onclick="showTab('galleryTab')">👗 Fashion Gallery</button>
+      <button class="light" onclick="showTab('videosTab')">🎬 Videos</button>
+      <button class="light" onclick="showTab('adsTab')">📢 Advertisements</button>
     </div>
 
-    <!-- ADD PRODUCT -->
-    <div class="card">
-      <h2>Add New Product 👗</h2>
-
-      <label for="productImage">Dress Picture</label>
-      <input
-        type="file"
-        id="productImage"
-        accept="image/*"
-      >
-
-      <label for="productName">Dress Name</label>
-      <input
-        type="text"
-        id="productName"
-        placeholder="Example: Royal Beaded Gown"
-      >
-
-      <label for="productDescription">Description</label>
-      <textarea
-        id="productDescription"
-        placeholder="Describe the dress..."
-      ></textarea>
-
-      <label for="productPrice">Price (₦)</label>
-      <input
-        type="number"
-        id="productPrice"
-        placeholder="Example: 85000"
-        min="0"
-      >
-
-      <button id="addButton" onclick="addProduct()">
-        Add Product
-      </button>
-
-      <div id="productMessage" class="message"></div>
-    </div>
 
     <!-- PRODUCTS -->
-    <div class="card">
-      <h2>Your Products</h2>
-      <div id="productsList">
-        Loading products...
+    <section id="productsTab" class="tab active">
+
+      <h2>🛍️ Products</h2>
+
+      <div class="card">
+
+        <h3>Add New Product</h3>
+
+        <input id="productImage" type="file" accept="image/*">
+
+        <input id="productName" placeholder="Dress/product name">
+
+        <textarea id="productDescription"
+          placeholder="Describe the dress, fabric, design, beads, etc."></textarea>
+
+        <input id="productPrice"
+          type="number"
+          placeholder="Price in NGN">
+
+        <button class="primary" onclick="addProduct()">
+          Add Product
+        </button>
+
       </div>
-    </div>
+
+      <h3>Your Products</h3>
+
+      <div id="productsList" class="grid"></div>
+
+    </section>
+
+
+    <!-- FASHION GALLERY -->
+    <section id="galleryTab" class="tab">
+
+      <h2>👗 African Fashion Gallery</h2>
+
+      <p class="small">
+        Add beautiful African fashion inspiration, beading designs,
+        traditional styles and other fashion images.
+      </p>
+
+      <div class="card">
+
+        <h3>Add Fashion Design</h3>
+
+        <input id="galleryImage" type="file" accept="image/*">
+
+        <input id="galleryTitle"
+          placeholder="Design title">
+
+        <textarea id="galleryDescription"
+          placeholder="Describe this fashion design"></textarea>
+
+        <select id="galleryCategory">
+          <option>African Fashion</option>
+          <option>Beading Designs</option>
+          <option>Traditional Fashion</option>
+          <option>Bridal Fashion</option>
+          <option>Evening Dresses</option>
+          <option>Fashion Inspiration</option>
+        </select>
+
+        <label>
+          <input id="galleryFeatured" type="checkbox">
+          Featured design
+        </label>
+
+        <br>
+
+        <button class="primary" onclick="addGallery()">
+          Add Fashion Design
+        </button>
+
+      </div>
+
+      <h3>Gallery</h3>
+
+      <div id="galleryList" class="grid"></div>
+
+    </section>
+
+
+    <!-- VIDEOS -->
+    <section id="videosTab" class="tab">
+
+      <h2>🎬 Fashion Videos</h2>
+
+      <p class="small">
+        Add videos you own or have permission to use.
+      </p>
+
+      <div class="card">
+
+        <h3>Add Video</h3>
+
+        <input id="videoTitle"
+          placeholder="Video title">
+
+        <textarea id="videoDescription"
+          placeholder="Video description"></textarea>
+
+        <input id="videoUrl"
+          type="url"
+          placeholder="Video URL">
+
+        <input id="videoThumbnail"
+          type="url"
+          placeholder="Thumbnail image URL (optional)">
+
+        <button class="primary" onclick="addVideo()">
+          Add Video
+        </button>
+
+      </div>
+
+      <h3>Your Videos</h3>
+
+      <div id="videosList" class="grid"></div>
+
+    </section>
+
+
+    <!-- ADVERTISEMENTS -->
+    <section id="adsTab" class="tab">
+
+      <h2>📢 Advertisements & Promotions</h2>
+
+      <p class="small">
+        Create promotions, announcements, special offers and
+        anything you want visitors to notice on the website.
+      </p>
+
+      <div class="card">
+
+        <h3>Create Advertisement</h3>
+
+        <input id="adTitle"
+          placeholder="Advertisement title">
+
+        <textarea id="adDescription"
+          placeholder="Advertisement message"></textarea>
+
+        <input id="adImage"
+          type="file"
+          accept="image/*">
+
+        <input id="adButtonText"
+          placeholder="Button text e.g. Shop Now">
+
+        <input id="adButtonUrl"
+          placeholder="Button link or WhatsApp link">
+
+        <button class="primary" onclick="addAdvertisement()">
+          Publish Advertisement
+        </button>
+
+      </div>
+
+      <h3>Your Advertisements</h3>
+
+      <div id="adsList" class="grid"></div>
+
+    </section>
 
   </div>
 
 </div>
 
+
 <script>
 
-  /* ================================
-     SUPABASE CONNECTION
-  ================================= */
+const SUPABASE_URL = "https://uldqpureopmjzgqnndbf.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__Dp9MknPGgaSN5EHB6JG5A_kSfWerAm";
 
-  const SUPABASE_URL = "https://uldqpureopmjzgqnndbf.supabase.co";
-  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__Dp9MknPGgaSN5EHB6JG5A_kSfWerAm";
-
-  const supabaseClient = supabase.createClient(
+const supabaseClient =
+  window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
   );
 
 
-  /* ================================
-     LOGIN
-  ================================= */
+/* =========================
+   GENERAL
+========================= */
 
-  async function login() {
+function showMessage(id, text, type = "success") {
 
-    const email =
-      document.getElementById("email").value.trim();
+  const box = document.getElementById(id);
 
-    const password =
-      document.getElementById("password").value;
+  box.textContent = text;
 
-    const message =
-      document.getElementById("loginMessage");
+  box.className = "message " + type;
 
-    message.style.display = "block";
-    message.textContent = "Logging in...";
+  box.style.display = "block";
 
-    const { data, error } =
-      await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-      });
+  setTimeout(() => {
+    box.style.display = "none";
+  }, 5000);
+}
 
-    if (error) {
-      message.textContent = error.message;
-      return;
-    }
 
-    const role =
-      data.user?.app_metadata?.role;
+function showTab(tabId) {
 
-    if (role !== "admin") {
+  document.querySelectorAll(".tab")
+    .forEach(tab => tab.classList.remove("active"));
 
-      await supabaseClient.auth.signOut();
+  document.getElementById(tabId)
+    .classList.add("active");
 
-      message.textContent =
-        "Access denied. Admin account required.";
+}
 
-      return;
-    }
 
-    document.getElementById("loginBox").style.display = "none";
+/* =========================
+   ADMIN AUTH
+========================= */
 
-    document.getElementById("dashboard")
-      .classList.remove("hidden");
+async function adminLogin() {
 
-    loadProducts();
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  if (!email || !password) {
+
+    showMessage(
+      "loginMessage",
+      "Enter your admin email and password.",
+      "error"
+    );
+
+    return;
   }
 
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
 
-  /* ================================
-     LOGOUT
-  ================================= */
+  if (error) {
 
-  async function logout() {
+    showMessage(
+      "loginMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  const role =
+    data.user?.app_metadata?.role;
+
+  if (role !== "admin") {
 
     await supabaseClient.auth.signOut();
 
-    document.getElementById("dashboard")
-      .classList.add("hidden");
+    showMessage(
+      "loginMessage",
+      "This account is not an administrator.",
+      "error"
+    );
 
-    document.getElementById("loginBox").style.display = "block";
-
-    document.getElementById("password").value = "";
+    return;
   }
 
+  showDashboard();
 
-  /* ================================
-     ADD PRODUCT
-  ================================= */
+}
 
-  async function addProduct() {
 
-    const imageFile =
+async function adminLogout() {
+
+  await supabaseClient.auth.signOut();
+
+  document
+    .getElementById("dashboard")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginBox")
+    .classList.remove("hidden");
+}
+
+
+function showDashboard() {
+
+  document
+    .getElementById("loginBox")
+    .classList.add("hidden");
+
+  document
+    .getElementById("dashboard")
+    .classList.remove("hidden");
+
+  loadProducts();
+  loadGallery();
+  loadVideos();
+  loadAdvertisements();
+}
+
+
+async function checkAdminSession() {
+
+  const { data } =
+    await supabaseClient.auth.getSession();
+
+  const session = data.session;
+
+  if (!session) return;
+
+  const role =
+    session.user?.app_metadata?.role;
+
+  if (role === "admin") {
+
+    showDashboard();
+
+  } else {
+
+    await supabaseClient.auth.signOut();
+
+  }
+}
+
+
+/* =========================
+   STORAGE
+========================= */
+
+async function uploadImage(file, folder) {
+
+  if (!file) {
+    throw new Error("Please choose an image.");
+  }
+
+  const extension =
+    file.name.split(".").pop();
+
+  const filename =
+    `${folder}/${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2)}.${extension}`;
+
+  const { error } =
+    await supabaseClient.storage
+      .from("product-images")
+      .upload(filename, file, {
+        upsert: false
+      });
+
+  if (error) throw error;
+
+  const { data } =
+    supabaseClient.storage
+      .from("product-images")
+      .getPublicUrl(filename);
+
+  return data.publicUrl;
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+async function addProduct() {
+
+  try {
+
+    const file =
       document.getElementById("productImage").files[0];
 
     const name =
-      document.getElementById("productName").value.trim();
+      document.getElementById("productName")
+        .value.trim();
 
     const description =
-      document.getElementById("productDescription").value.trim();
+      document.getElementById("productDescription")
+        .value.trim();
 
     const price =
-      Number(document.getElementById("productPrice").value);
+      Number(
+        document.getElementById("productPrice").value
+      );
 
-    const message =
-      document.getElementById("productMessage");
+    if (!file || !name || !price) {
 
-    const button =
-      document.getElementById("addButton");
+      showMessage(
+        "mainMessage",
+        "Please provide an image, product name and price.",
+        "error"
+      );
 
-
-    if (!imageFile) {
-      message.style.display = "block";
-      message.textContent = "Please choose a dress picture.";
       return;
     }
 
-    if (!name) {
-      message.style.display = "block";
-      message.textContent = "Please enter the dress name.";
-      return;
-    }
+    showMessage(
+      "mainMessage",
+      "Uploading product..."
+    );
 
-    if (!price || price < 0) {
-      message.style.display = "block";
-      message.textContent = "Please enter a valid price.";
-      return;
-    }
+    const imageUrl =
+      await uploadImage(file, "products");
 
-
-    button.disabled = true;
-    button.textContent = "Uploading...";
-
-    message.style.display = "block";
-    message.textContent = "Uploading product...";
-
-
-    try {
-
-      /* Create a unique file name */
-
-      const fileExtension =
-        imageFile.name.split(".").pop();
-
-      const fileName =
-        `${crypto.randomUUID()}.${fileExtension}`;
-
-
-      /* Upload picture */
-
-      const { error: uploadError } =
-        await supabaseClient.storage
-          .from("product-images")
-          .upload(fileName, imageFile, {
-            cacheControl: "3600",
-            upsert: false
-          });
-
-
-      if (uploadError) {
-        throw uploadError;
-      }
-
-
-      /* Get public picture URL */
-
-      const { data: publicUrlData } =
-        supabaseClient.storage
-          .from("product-images")
-          .getPublicUrl(fileName);
-
-      const imageUrl =
-        publicUrlData.publicUrl;
-
-
-      /* Save product */
-
-      const { error: productError } =
-        await supabaseClient
-          .from("products")
-          .insert({
-            name: name,
-            description: description,
-            price_ngn: Math.round(price),
-            image_url: imageUrl,
-            available: true
-          });
-
-
-      if (productError) {
-        throw productError;
-      }
-
-
-      message.textContent =
-        "Product added successfully! 🎉";
-
-      document.getElementById("productImage").value = "";
-      document.getElementById("productName").value = "";
-      document.getElementById("productDescription").value = "";
-      document.getElementById("productPrice").value = "";
-
-      loadProducts();
-
-    } catch (error) {
-
-      console.error(error);
-
-      message.textContent =
-        "Error: " + error.message;
-
-    } finally {
-
-      button.disabled = false;
-      button.textContent = "Add Product";
-    }
-  }
-
-
-  /* ================================
-     LOAD PRODUCTS
-  ================================= */
-
-  async function loadProducts() {
-
-    const list =
-      document.getElementById("productsList");
-
-    list.innerHTML = "Loading products...";
-
-
-    const { data, error } =
+    const { error } =
       await supabaseClient
         .from("products")
-        .select("*")
-        .order("created_at", {
-          ascending: false
+        .insert({
+          name,
+          description,
+          price_ngn: price,
+          image_url: imageUrl,
+          available: true
         });
 
+    if (error) throw error;
 
-    if (error) {
+    document.getElementById("productImage").value = "";
+    document.getElementById("productName").value = "";
+    document.getElementById("productDescription").value = "";
+    document.getElementById("productPrice").value = "";
 
-      list.innerHTML =
-        "<p>Error loading products: " +
-        error.message +
-        "</p>";
+    showMessage(
+      "mainMessage",
+      "Product added successfully!"
+    );
 
-      return;
-    }
+    loadProducts();
 
+  } catch (error) {
 
-    if (!data || data.length === 0) {
+    showMessage(
+      "mainMessage",
+      error.message,
+      "error"
+    );
 
-      list.innerHTML =
-        "<p>You have not added any products yet.</p>";
-
-      return;
-    }
-
-
-    list.innerHTML = "";
-
-
-    data.forEach(product => {
-
-      const div =
-        document.createElement("div");
-
-      div.className = "product";
+  }
+}
 
 
-      const image =
-        document.createElement("img");
+async function loadProducts() {
 
-      image.src = product.image_url;
-      image.alt = product.name;
+  const box =
+    document.getElementById("productsList");
 
+  box.innerHTML = "Loading...";
 
-      const title =
-        document.createElement("h3");
+  const { data, error } =
+    await supabaseClient
+      .from("products")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
 
-      title.textContent = product.name;
+  if (error) {
 
+    box.innerHTML =
+      `<p>${error.message}</p>`;
 
-      const description =
-        document.createElement("p");
-
-      description.textContent =
-        product.description || "";
-
-
-      const price =
-        document.createElement("p");
-
-      price.className = "price";
-
-      price.textContent =
-        "₦" +
-        Number(product.price_ngn)
-          .toLocaleString("en-NG");
-
-
-      const availability =
-        document.createElement("p");
-
-      availability.textContent =
-        product.available
-          ? "Available"
-          : "Unavailable";
-
-      availability.className =
-        product.available
-          ? "available"
-          : "unavailable";
-
-
-      div.appendChild(image);
-      div.appendChild(title);
-      div.appendChild(description);
-      div.appendChild(price);
-      div.appendChild(availability);
-
-      list.appendChild(div);
-    });
+    return;
   }
 
-</script>
+  if (!data.length) {
 
-</body>
-</html>
+    box.innerHTML =
+      "<p>No products yet.</p>";
+
+    return;
+  }
+
+  box.innerHTML =
+    data.map(product => `
+
+      <div class="card">
+
+        <img src="${escapeHtml(product.image_url)}">
+
+        <h3>${escapeHtml(product.name)}</h3>
+
+        <p>${escapeHtml(product.description || "")}</p>
+
+        <strong>
+          ₦${Number(product.price_ngn).toLocaleString()}
+        </strong>
+
+        <p>
+          <span class="status ${
+            product.available ? "active" : "inactive"
+          }">
+            ${product.available ? "Available" : "Unavailable"}
+          </span>
+        </p>
+
+        <button class="light"
+          onclick="toggleProduct('${product.id}', ${product.available})">
+          ${product.available ? "Mark Unavailable" : "Make Available"}
+        </button>
+
+        <button class="danger"
+          onclick="deleteProduct('${product.id}')">
+          Delete
+        </button>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+async function toggleProduct(id, current) {
+
+  const { error } =
+    await supabaseClient
+      .from("products")
+      .update({
+        available: !current
+      })
+      .eq("id", id);
+
+  if (error) {
+
+    showMessage(
+      "mainMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  loadProducts();
+}
+
+
+async function deleteProduct(id) {
+
+  if (!confirm("Delete this product?")) return;
+
+  const { error } =
+    await supabaseClient
+      .from("products")
+      .delete()
+      .eq("id", id);
+
+  if (error) {
+
+    showMessage(
+      "mainMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  showMessage(
+    "mainMessage",
+    "Product deleted."
+  );
+
+  loadProducts();
+}
+
+
+/* =========================
+   FASHION GALLERY
+========================= */
+
+async function addGallery() {
+
+  try {
+
+    const file =
+      document.getElementById("galleryImage").files[0];
+
+    const title =
+      document.getElementById("galleryTitle")
+        .value.trim();
+
+    const description =
+      document.getElementById("galleryDescription")
+        .value.trim();
+
+    const category =
+      document.getElementById("galleryCategory").value;
+
+    const featured =
+      document.getElementById("galleryFeatured").checked;
+
+    if (!file || !title) {
+
+      showMessage(
+        "mainMessage",
+        "Choose an image and enter a title.",
+        "error"
+      );
+
+      return;
+    }
+
+    showMessage(
+      "mainMessage",
+      "Uploading fashion design..."
+    );
+
+    const imageUrl =
+      await uploadImage(file, "gallery");
+
+    const { error } =
+      await supabaseClient
+        .from("fashion_gallery")
+        .insert({
+          title,
+          description,
+          image_url: imageUrl,
+          category,
+          featured,
+          active: true
+        });
+
+    if (error) throw error;
+
+    document.getElementById("galleryImage").value = "";
+    document.getElementById("galleryTitle").value = "";
+    document.getElementById("galleryDescription").value = "";
+    document.getElementById("galleryFeatured").checked = false;
+
+    showMessage(
+      "mainMessage",
+      "Fashion design added!"
+    );
+
+    loadGallery();
+
+  } catch (error) {
+
+    showMessage(
+      "mainMessage",
+      error.message,
+      "error"
+    );
+
+  }
+}
+
+
+async function loadGallery() {
+
+  const box =
+    document.getElementById("galleryList");
+
+  box.innerHTML = "Loading...";
+
+  const { data, error } =
+    await supabaseClient
+      .from("fashion_gallery")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+  if (error) {
+
+    box.innerHTML =
+      `<p>${error.message}</p>`;
+
+    return;
+  }
+
+  if (!data.length) {
+
+    box.innerHTML =
+      "<p>No fashion designs yet.</p>";
+
+    return;
+  }
+
+  box.innerHTML =
+    data.map(item => `
+
+      <div class="card">
+
+        <img src="${escapeHtml(item.image_url)}">
+
+        <h3>${escapeHtml(item.title)}</h3>
+
+        <p>${escapeHtml(item.description || "")}</p>
+
+        <p>
+          <strong>${escapeHtml(item.category)}</strong>
+        </p>
+
+        <span class="status ${
+          item.active ? "active" : "inactive"
+        }">
+          ${item.active ? "Visible" : "Hidden"}
+        </span>
+
+        <br>
+
+        <button class="light"
+          onclick="toggleGallery('${item.id}', ${item.active})">
+          ${item.active ? "Hide" : "Show"}
+        </button>
+
+        <button class="danger"
+          onclick="deleteGallery('${item.id}')">
+          Delete
+        </button>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+async function toggleGallery(id, current) {
+
+  const { error } =
+    await supabaseClient
+      .from("fashion_gallery")
+      .update({
+        active: !current
+      })
+      .eq("id", id);
+
+  if (error) {
+
+    showMessage(
+      "mainMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  loadGallery();
+}
+
+
+async function deleteGallery(id) {
+
+  if (!confirm("Delete this fashion design?")) return;
+
+  const { error } =
+    await supabaseClient
+      .from("fashion_gallery")
+      .delete()
+      .eq("id", id);
+
+  if (error) {
+
+    showMessage(
+      "mainMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  loadGallery();
+}
+
+
+/* =========================
+   VIDEOS
+========================= */
+
+async function addVideo() {
+
+  const title =
+    document.getElementById("videoTitle")
+      .value.trim();
+
+  const description =
+    document.getElementById("videoDescription")
+      .value.trim();
+
+  const videoUrl =
+    document.getElementById("videoUrl")
+      .value.trim();
+
+  const thumbnail =
+    document.getElementById("videoThumbnail")
+      .value.trim();
+
+  if (!title || !videoUrl) {
+
+    showMessage(
+      "mainMessage",
+      "Enter a video title and video URL.",
+      "error"
+    );
+
+    return;
+  }
+
+  const { error } =
+    await supabaseClient
+      .from("fashion_videos")
+      .insert({
+        title,
+        description,
+        video_url: videoUrl,
+        thumbnail_url: thumbnail,
+        active: true
+      });
+
+  if (error) {
+
+    showMessage(
+      "mainMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  document.getElementById("videoTitle").value = "";
+  document.getElementById("videoDescription").value = "";
+  document.getElementById("videoUrl").value = "";
+  document.getElementById("videoThumbnail").value = "";
+
+  showMessage(
+    "mainMessage",
+    "Video added successfully!"
+  );
+
+  loadVideos();
+}
+
+
+async function loadVideos() {
+
+  const box =
+    document.getElementById("videosList");
+
+  box.innerHTML = "Loading...";
+
+  const { data, error } =
+    await supabaseClient
+      .from("fashion_videos")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+  if (error) {
+
+    box.innerHTML =
+      `<p>${error.message}</p>`;
+
+    return;
+  }
+
+  if (!data.length) {
+
+    box.innerHTML =
+     
