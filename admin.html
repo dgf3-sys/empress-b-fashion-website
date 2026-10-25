@@ -3,1109 +3,1060 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Empress B Admin</title>
+
+  <title>Empress B | African Fashion & Bespoke Sewing</title>
+
+  <meta
+    name="description"
+    content="Empress B — beautiful African fashion, bespoke sewing, beading, bridal styles and custom fashion designs."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // ================================
+  // EMPRESS B — SUPABASE CONFIG
+  // ================================
+  const SUPABASE_URL = "https://uldqpureopmjzgqnndbf.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__Dp9MknPGgaSN5EHB6JG5A_kSfWerAm";
 
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+</script>
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --wine: #641f35;
+      --wine-dark: #3f1020;
+      --gold: #c99a4a;
+      --cream: #fffaf4;
+      --cream-dark: #f4eadf;
+      --black: #171316;
+      --muted: #766c70;
+      --white: #ffffff;
+      --border: #eadfd5;
+      --shadow: 0 14px 40px rgba(40, 20, 25, 0.10);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f3f6;
-      color: #241d23;
+      font-family: "DM Sans", sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      line-height: 1.6;
     }
 
-    header {
-      background: #24131f;
-      color: white;
-      padding: 20px;
-    }
-
-    header h1 {
-      margin: 0;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .box, .card {
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      margin-bottom: 18px;
-      box-shadow: 0 4px 18px rgba(0,0,0,.06);
-    }
-
-    .login {
-      max-width: 450px;
-      margin: 50px auto;
-    }
-
-    input, textarea, select {
-      width: 100%;
-      padding: 13px;
-      margin: 7px 0 12px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-
-    textarea {
-      min-height: 100px;
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
     }
 
     button {
-      border: 0;
-      padding: 12px 16px;
-      margin: 4px;
-      border-radius: 10px;
-      font-weight: bold;
       cursor: pointer;
     }
 
-    .primary {
-      background: #8b285f;
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    .topbar {
+      background: var(--wine-dark);
       color: white;
+      padding: 9px 0;
+      text-align: center;
+      font-size: 13px;
     }
 
-    .dark {
-      background: #24131f;
-      color: white;
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,250,244,0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
     }
 
-    .danger {
-      background: #c62828;
-      color: white;
-    }
-
-    .light {
-      background: #eee;
-    }
-
-    .tabs {
+    .nav {
+      min-height: 76px;
       display: flex;
-      overflow-x: auto;
-      gap: 5px;
-      margin-bottom: 20px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    .tab {
-      display: none;
+    .brand {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--wine);
+      white-space: nowrap;
     }
 
-    .tab.active {
+    .brand span {
       display: block;
+      font-family: "DM Sans", sans-serif;
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-top: -7px;
     }
 
-    .grid {
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--wine);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      border: 1px solid var(--border);
+      background: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 15px;
+      place-items: center;
+      font-size: 17px;
     }
 
-    .item img {
-      width: 100%;
-      max-height: 260px;
-      object-fit: cover;
-      border-radius: 12px;
+    .icon-btn:hover {
+      border-color: var(--gold);
     }
 
-    .message {
-      padding: 12px;
-      border-radius: 10px;
-      margin: 10px 0;
+    .cart-count {
+      position: absolute;
+      background: var(--wine);
+      color: white;
+      font-size: 10px;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      top: -4px;
+      right: -3px;
+    }
+
+    .relative {
+      position: relative;
+    }
+
+    .mobile-menu-btn {
       display: none;
     }
 
-    .success {
-      display: block;
-      background: #e4f6e8;
-      color: #17652a;
+    .hero {
+      min-height: 650px;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(30, 10, 17, .84),
+          rgba(30, 10, 17, .42),
+          rgba(30, 10, 17, .18)
+        ),
+        url("https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+      color: white;
     }
 
-    .error {
-      display: block;
-      background: #fde5e5;
-      color: #9b1c1c;
+    .hero-content {
+      width: min(1180px, 92%);
+      margin: auto;
+      padding: 100px 0;
     }
 
-    .hidden {
-      display: none !important;
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 15px;
     }
 
-    .status {
-      display: inline-block;
-      padding: 5px 9px;
-      border-radius: 20px;
+    .hero h1 {
+      max-width: 700px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(48px, 8vw, 90px);
+      line-height: .94;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      max-width: 570px;
+      font-size: 17px;
+      color: #f9eeee;
+      margin-bottom: 32px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      border: 0;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: .2s;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--wine);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--wine-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: white;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: inherit;
+      border: 1px solid currentColor;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--wine);
+    }
+
+    .section {
+      padding: 85px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-head h2 {
+      font-family: "Cormorant Garamond", serif;
+      color: var(--wine);
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .category-card {
+      min-height: 270px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      background: #ddd;
+      cursor: pointer;
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .category-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 22px;
+      color: white;
+      background: linear-gradient(transparent, rgba(0,0,0,.75));
+    }
+
+    .category-overlay h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 29px;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 30px;
+    }
+
+    .filter-btn {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 10px 17px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--wine);
+      color: white;
+      border-color: var(--wine);
+    }
+
+    .search-wrap {
+      max-width: 600px;
+      margin: 0 auto 25px;
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 16px 20px 16px 48px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: white;
+      outline: none;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 19px;
+      top: 14px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,.03);
+      position: relative;
+    }
+
+    .product-image {
+      height: 330px;
+      background: #eee;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .4s;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.04);
+    }
+
+    .heart {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.95);
+      border: 0;
+      z-index: 2;
+    }
+
+    .product-info {
+      padding: 18px;
+    }
+
+    .product-category {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .product-info h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 25px;
+      margin: 4px 0;
+    }
+
+    .product-info p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .price {
+      color: var(--wine);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .product-buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .product-buttons .btn {
+      width: 100%;
+      padding: 11px;
+      font-size: 13px;
+    }
+
+    .inspiration {
+      background: var(--wine-dark);
+      color: white;
+    }
+
+    .inspiration .section-head h2 {
+      color: white;
+    }
+
+    .inspiration .section-head p {
+      color: #dfcbd1;
+    }
+
+    .inspiration-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .inspiration-card {
+      aspect-ratio: 3/4;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .inspiration-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .inspiration-card span {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      background: rgba(0,0,0,.55);
+      padding: 9px;
+      border-radius: 10px;
       font-size: 12px;
     }
 
-    .on {
-      background: #dff5e5;
-      color: #17652a;
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
 
-    .off {
-      background: #f8dddd;
-      color: #8a1c1c;
+    .service-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px;
+      text-align: center;
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--cream-dark);
+      font-size: 26px;
+    }
+
+    .service-card h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 27px;
+      color: var(--wine);
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .custom-banner {
+      background:
+        linear-gradient(90deg, rgba(100,31,53,.94), rgba(100,31,53,.68)),
+        url("https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+      color: white;
+      border-radius: 30px;
+      padding: 70px;
+    }
+
+    .custom-banner h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(38px, 5vw, 62px);
+      max-width: 650px;
+      line-height: 1;
+      margin-bottom: 15px;
+    }
+
+    .custom-banner p {
+      max-width: 650px;
+      color: #f8e9ed;
+      margin-bottom: 25px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .video-card {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .video-card video,
+    .video-placeholder {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      background: #251820;
+    }
+
+    .video-placeholder {
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 40px;
+    }
+
+    .video-info {
+      padding: 18px;
+    }
+
+    .video-info h3 {
+      font-family: "Cormorant Garamond", serif;
+      color: var(--wine);
+      font-size: 25px;
+    }
+
+    .video-info p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .ad-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .ad-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .ad-card img {
+      height: 100%;
+      min-height: 230px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .ad-content {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .ad-content h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+      color: var(--wine);
+      margin-bottom: 8px;
+    }
+
+    .ad-content p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .about-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-photo {
+      border-radius: 30px;
+      overflow: hidden;
+      min-height: 500px;
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-text h2 {
+      font-family: "Cormorant Garamond", serif;
+      color: var(--wine);
+      font-size: 55px;
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .contact-section {
+      background: var(--cream-dark);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .contact-card {
+      background: white;
+      padding: 30px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    .contact-card h3 {
+      color: var(--wine);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .contact-link {
+      display: block;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    footer {
+      background: #260d17;
+      color: #eadde1;
+      padding: 55px 0 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 35px;
+    }
+
+    footer h3 {
+      color: white;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    footer p,
+    footer a {
+      color: #cdbdc3;
+      font-size: 13px;
+    }
+
+    footer a {
+      display: block;
+      margin: 8px 0;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,.1);
+      margin-top: 35px;
+      padding-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #a9959d;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,7,10,.68);
+      z-index: 3000;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal.show {
+      display: grid;
+      place-items: center;
+    }
+
+    .modal-box {
+      width: min(620px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 25px;
+      padding: 28px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      border: 0;
+      background: var(--cream-dark);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+    }
+
+    .modal-box h2 {
+      font-family: "Cormorant Garamond", serif;
+      color: var(--wine);
+      font-size: 38px;
+      margin-bottom: 5px;
+    }
+
+    .modal-box > p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 12px 13px;
+      border-radius: 12px;
+      outline: none;
+      background: #fffdfa;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .selected-style {
+      display: flex;
+      gap: 15px;
+      padding: 12px;
+      background: var(--cream);
+      border-radius: 14px;
+      margin-bottom: 18px;
+    }
+
+    .selected-style img {
+      width: 80px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .selected-style strong {
+      color: var(--wine);
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 70px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item img {
+      width: 70px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .cart-item h4 {
+      font-family: "Cormorant Garamond", serif;
+      color: var(--wine);
+      font-size: 21px;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      padding: 20px 0;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+      background: white;
+      border: 1px dashed var(--border);
+      border-radius: 18px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1c1115;
+      color: white;
+      padding: 13px 20px;
+      border-radius: 999px;
+      z-index: 5000;
+      transition: .3s;
+      font-size: 13px;
+      box-shadow: var(--shadow);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 35px;
+      color: var(--muted);
+    }
+
+    .user-pill {
+      display: none;
+      font-size: 12px;
+      color: var(--wine);
+      font-weight: 700;
+    }
+
+    .account-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .small-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    @media (max-width: 1000px) {
+      .category-grid,
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .inspiration-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: grid;
+      }
+
+      .nav-links.mobile-open {
+        display: flex;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        right: 0;
+        background: var(--cream);
+        border-bottom: 1px solid var(--border);
+        padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .hero {
+        min-height: 590px;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .category-grid,
+      .product-grid,
+      .service-grid,
+      .video-grid,
+      .ad-grid,
+      .about-box,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .inspiration-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .custom-banner {
+        padding: 35px 25px;
+        border-radius: 22px;
+      }
+
+      .ad-card {
+        grid-template-columns: 1fr;
+      }
+
+      .ad-card img {
+        height: 250px;
+      }
+
+      .about-photo {
+        min-height: 360px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .brand {
+        font-size: 27px;
+      }
+
+      .nav-actions .account-button {
+        display: none;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>EMPRESS B 👑</h1>
-  <p>Administrator Dashboard</p>
-</header>
-
-<div class="container">
-
-  <!-- LOGIN -->
-  <div id="loginBox" class="box login">
-
-    <h2>Admin Login</h2>
-
-    <input
-      id="email"
-      type="email"
-      placeholder="Admin email"
-      autocomplete="email">
-
-    <input
-      id="password"
-      type="password"
-      placeholder="Password"
-      autocomplete="current-password">
-
-    <button id="loginButton" class="primary">
-      Login
-    </button>
-
-    <div id="loginMessage" class="message"></div>
-
+  <div class="topbar">
+    ✨ Bespoke African Fashion • Custom Sewing • Beading • Made For You
   </div>
 
+  <header>
+    <div class="container nav">
 
-  <!-- DASHBOARD -->
-  <div id="dashboard" class="hidden">
-
-    <div class="box">
-
-      <h2>Welcome, Empress B 👑</h2>
-
-      <p>You are logged in as administrator.</p>
-
-      <button id="logoutButton" class="dark">
-        Sign Out
-      </button>
-
-      <div id="mainMessage" class="message"></div>
-
-    </div>
-
-
-    <div class="tabs">
-
-      <button class="primary" data-tab="productsTab">
-        🛍️ Products
-      </button>
-
-      <button class="light" data-tab="galleryTab">
-        👗 Fashion Gallery
-      </button>
-
-      <button class="light" data-tab="videosTab">
-        🎬 Videos
-      </button>
-
-      <button class="light" data-tab="adsTab">
-        📢 Advertisements
-      </button>
-
-    </div>
-
-
-    <!-- PRODUCTS -->
-    <section id="productsTab" class="tab active">
-
-      <div class="box">
-
-        <h2>🛍️ Add Product</h2>
-
-        <input id="productImage" type="file" accept="image/*">
-
-        <input id="productName" placeholder="Product name">
-
-        <textarea
-          id="productDescription"
-          placeholder="Product description"></textarea>
-
-        <input
-          id="productPrice"
-          type="number"
-          placeholder="Price in NGN">
-
-        <button id="addProductButton" class="primary">
-          Add Product
-        </button>
-
-      </div>
-
-      <h2>Your Products</h2>
-
-      <div id="productsList" class="grid"></div>
-
-    </section>
-
-
-    <!-- GALLERY -->
-    <section id="galleryTab" class="tab">
-
-      <div class="box">
-
-        <h2>👗 Add Fashion Design</h2>
-
-        <input id="galleryImage" type="file" accept="image/*">
-
-        <input
-          id="galleryTitle"
-          placeholder="Design title">
-
-        <textarea
-          id="galleryDescription"
-          placeholder="Describe the design"></textarea>
-
-        <select id="galleryCategory">
-          <option>African Fashion</option>
-          <option>Beading Designs</option>
-          <option>Traditional Fashion</option>
-          <option>Bridal Fashion</option>
-          <option>Evening Dresses</option>
-          <option>Fashion Inspiration</option>
-        </select>
-
-        <label>
-          <input id="galleryFeatured" type="checkbox">
-          Featured design
-        </label>
-
-        <br>
-
-        <button id="addGalleryButton" class="primary">
-          Add Design
-        </button>
-
-      </div>
-
-      <h2>Fashion Gallery</h2>
-
-      <div id="galleryList" class="grid"></div>
-
-    </section>
-
-
-    <!-- VIDEOS -->
-    <section id="videosTab" class="tab">
-
-      <div class="box">
-
-        <h2>🎬 Add Fashion Video</h2>
-
-        <input
-          id="videoTitle"
-          placeholder="Video title">
-
-        <textarea
-          id="videoDescription"
-          placeholder="Video description"></textarea>
-
-        <input
-          id="videoUrl"
-          type="url"
-          placeholder="Video URL">
-
-        <input
-          id="videoThumbnail"
-          type="url"
-          placeholder="Thumbnail URL (optional)">
-
-        <button id="addVideoButton" class="primary">
-          Add Video
-        </button>
-
-      </div>
-
-      <h2>Fashion Videos</h2>
-
-      <div id="videosList" class="grid"></div>
-
-    </section>
-
-
-    <!-- ADVERTISEMENTS -->
-    <section id="adsTab" class="tab">
-
-      <div class="box">
-
-        <h2>📢 Create Advertisement</h2>
-
-        <input
-          id="adTitle"
-          placeholder="Advertisement title">
-
-        <textarea
-          id="adDescription"
-          placeholder="Advertisement message"></textarea>
-
-        <input
-          id="adImage"
-          type="file"
-          accept="image/*">
-
-        <input
-          id="adButtonText"
-          placeholder="Button text e.g. Shop Now">
-
-        <input
-          id="adButtonUrl"
-          placeholder="Button link">
-
-        <button id="addAdButton" class="primary">
-          Publish Advertisement
-        </button>
-
-      </div>
-
-      <h2>Your Advertisements</h2>
-
-      <div id="adsList" class="grid"></div>
-
-    </section>
-
-  </div>
-
-</div>
-
-
-<script>
-
-const SUPABASE_URL = "https://uldqpureopmjzgqnndbf.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__Dp9MknPGgaSN5EHB6JG5A_kSfWerAm";
-
-
-/* IMPORTANT:
-   Replace the two values above with the SAME
-   values already working in your index.html.
-*/
-
-
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
-
-
-const loginBox =
-  document.getElementById("loginBox");
-
-const dashboard =
-  document.getElementById("dashboard");
-
-const loginMessage =
-  document.getElementById("loginMessage");
-
-const mainMessage =
-  document.getElementById("mainMessage");
-
-
-function message(element, text, error = false) {
-
-  element.textContent = text;
-
-  element.className =
-    "message " + (error ? "error" : "success");
-
-}
-
-
-function clearMessage(element) {
-
-  element.textContent = "";
-  element.className = "message";
-
-}
-
-
-/* LOGIN */
-
-document
-  .getElementById("loginButton")
-  .addEventListener("click", async function () {
-
-    clearMessage(loginMessage);
-
-    const email =
-      document.getElementById("email").value.trim();
-
-    const password =
-      document.getElementById("password").value;
-
-    if (!email || !password) {
-
-      message(
-        loginMessage,
-        "Please enter your email and password.",
-        true
-      );
-
-      return;
-    }
-
-    const button = this;
-
-    button.disabled = true;
-    button.textContent = "Logging in...";
-
-    try {
-
-      const result =
-        await supabaseClient.auth.signInWithPassword({
-          email: email,
-          password: password
-        });
-
-      if (result.error) {
-        throw result.error;
-      }
-
-      const user = result.data.user;
-
-      const role =
-        user &&
-        user.app_metadata &&
-        user.app_metadata.role;
-
-      if (role !== "admin") {
-
-        await supabaseClient.auth.signOut();
-
-        throw new Error(
-          "This account is not an administrator."
-        );
-      }
-
-      loginBox.classList.add("hidden");
-      dashboard.classList.remove("hidden");
-
-      message(
-        mainMessage,
-        "Login successful. Welcome to your admin dashboard!"
-      );
-
-      loadEverything();
-
-    } catch (error) {
-
-      message(
-        loginMessage,
-        error.message || "Login failed.",
-        true
-      );
-
-    } finally {
-
-      button.disabled = false;
-      button.textContent = "Login";
-
-    }
-
-  });
-
-
-/* LOGOUT */
-
-document
-  .getElementById("logoutButton")
-  .addEventListener("click", async function () {
-
-    await supabaseClient.auth.signOut();
-
-    dashboard.classList.add("hidden");
-    loginBox.classList.remove("hidden");
-
-  });
-
-
-/* TABS */
-
-document
-  .querySelectorAll("[data-tab]")
-  .forEach(button => {
-
-    button.addEventListener("click", function () {
-
-      document
-        .querySelectorAll(".tab")
-        .forEach(tab =>
-          tab.classList.remove("active")
-        );
-
-      document
-        .getElementById(this.dataset.tab)
-        .classList.add("active");
-
-    });
-
-  });
-
-
-/* IMAGE UPLOAD */
-
-async function uploadImage(file, folder) {
-
-  if (!file) {
-    throw new Error("Please choose an image.");
-  }
-
-  const extension =
-    file.name.split(".").pop();
-
-  const filename =
-    folder +
-    "/" +
-    Date.now() +
-    "-" +
-    Math.random().toString(36).substring(2) +
-    "." +
-    extension;
-
-  const upload =
-    await supabaseClient.storage
-      .from("product-images")
-      .upload(filename, file);
-
-  if (upload.error) {
-    throw upload.error;
-  }
-
-  const publicUrl =
-    supabaseClient.storage
-      .from("product-images")
-      .getPublicUrl(filename);
-
-  return publicUrl.data.publicUrl;
-}
-
-
-/* PRODUCTS */
-
-document
-  .getElementById("addProductButton")
-  .addEventListener("click", addProduct);
-
-
-async function addProduct() {
-
-  try {
-
-    const file =
-      document.getElementById("productImage").files[0];
-
-    const name =
-      document.getElementById("productName").value.trim();
-
-    const description =
-      document.getElementById("productDescription").value.trim();
-
-    const price =
-      Number(document.getElementById("productPrice").value);
-
-    if (!file || !name || !price) {
-      throw new Error(
-        "Please choose an image, enter a name and enter a price."
-      );
-    }
-
-    message(mainMessage, "Uploading product...");
-
-    const imageUrl =
-      await uploadImage(file, "products");
-
-    const result =
-      await supabaseClient
-        .from("products")
-        .insert({
-          name: name,
-          description: description,
-          price_ngn: price,
-          image_url: imageUrl,
-          available: true
-        });
-
-    if (result.error) {
-      throw result.error;
-    }
-
-    document.getElementById("productImage").value = "";
-    document.getElementById("productName").value = "";
-    document.getElementById("productDescription").value = "";
-    document.getElementById("productPrice").value = "";
-
-    message(mainMessage, "Product added successfully!");
-
-    loadProducts();
-
-  } catch (error) {
-
-    message(mainMessage, error.message, true);
-
-  }
-
-}
-
-
-async function loadProducts() {
-
-  const box =
-    document.getElementById("productsList");
-
-  box.innerHTML = "Loading products...";
-
-  const result =
-    await supabaseClient
-      .from("products")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
-
-  if (result.error) {
-
-    box.innerHTML =
-      "<p>" + result.error.message + "</p>";
-
-    return;
-  }
-
-  if (!result.data.length) {
-
-    box.innerHTML =
-      "<p>No products yet.</p>";
-
-    return;
-  }
-
-  box.innerHTML =
-    result.data.map(product => `
-
-      <div class="card item">
-
-        <img src="${safe(product.image_url)}">
-
-        <h3>${safe(product.name)}</h3>
-
-        <p>${safe(product.description || "")}</p>
-
-        <strong>
-          ₦${Number(product.price_ngn).toLocaleString()}
-        </strong>
-
-        <p>
-          <span class="status ${
-            product.available ? "on" : "off"
-          }">
-            ${product.available ? "Available" : "Unavailable"}
-          </span>
-        </p>
-
-        <button class="light"
-          onclick="toggleProduct('${product.id}', ${product.available})">
-          ${product.available ? "Hide Product" : "Show Product"}
-        </button>
-
-        <button class="danger"
-          onclick="deleteProduct('${product.id}')">
-          Delete
-        </button>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-async function toggleProduct(id, current) {
-
-  const result =
-    await supabaseClient
-      .from("products")
-      .update({
-        available: !current
-      })
-      .eq("id", id);
-
-  if (result.error) {
-
-    message(
-      mainMessage,
-      result.error.message,
-      true
-    );
-
-    return;
-  }
-
-  loadProducts();
-}
-
-
-async function deleteProduct(id) {
-
-  if (!confirm("Delete this product?")) return;
-
-  const result =
-    await supabaseClient
-      .from("products")
-      .delete()
-      .eq("id", id);
-
-  if (result.error) {
-
-    message(
-      mainMessage,
-      result.error.message,
-      true
-    );
-
-    return;
-  }
-
-  message(mainMessage, "Product deleted.");
-
-  loadProducts();
-}
-
-
-/* GALLERY */
-
-document
-  .getElementById("addGalleryButton")
-  .addEventListener("click", addGallery);
-
-
-async function addGallery() {
-
-  try {
-
-    const file =
-      document.getElementById("galleryImage").files[0];
-
-    const title =
-      document.getElementById("galleryTitle").value.trim();
-
-    const description =
-      document.getElementById("galleryDescription").value.trim();
-
-    const category =
-      document.getElementById("galleryCategory").value;
-
-    const featured =
-      document.getElementById("galleryFeatured").checked;
-
-    if (!file || !title) {
-      throw new Error(
-        "Please choose an image and enter a title."
-      );
-    }
-
-    message(mainMessage, "Uploading fashion design...");
-
-    const imageUrl =
-      await uploadImage(file, "gallery");
-
-    const result =
-      await supabaseClient
-        .from("fashion_gallery")
-        .insert({
-          title: title,
-          description: description,
-          image_url: imageUrl,
-          category: category,
-          featured: featured,
-          active: true
-        });
-
-    if (result.error) {
-      throw result.error;
-    }
-
-    document.getElementById("galleryImage").value = "";
-    document.getElementById("galleryTitle").value = "";
-    document.getElementById("galleryDescription").value = "";
-    document.getElementById("galleryFeatured").checked = false;
-
-    message(mainMessage, "Fashion design added!");
-
-    loadGallery();
-
-  } catch (error) {
-
-    message(mainMessage, error.message, true);
-
-  }
-
-}
-
-
-async function loadGallery() {
-
-  const box =
-    document.getElementById("galleryList");
-
-  box.innerHTML = "Loading gallery...";
-
-  const result =
-    await supabaseClient
-      .from("fashion_gallery")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
-
-  if (result.error) {
-
-    box.innerHTML =
-      "<p>" + result.error.message + "</p>";
-
-    return;
-  }
-
-  if (!result.data.length) {
-
-    box.innerHTML =
-      "<p>No designs yet.</p>";
-
-    return;
-  }
-
-  box.innerHTML =
-    result.data.map(item => `
-
-      <div class="card item">
-
-        <img src="${safe(item.image_url)}">
-
-        <h3>${safe(item.title)}</h3>
-
-        <p>${safe(item.description || "")}</p>
-
-        <p>${safe(item.category)}</p>
-
-        <span class="status ${
-          item.active ? "on" : "off"
-        }">
-          ${item.active ? "Visible" : "Hidden"}
-        </span>
-
-        <br>
-
-        <button class="light"
-          onclick="toggleGallery('${item.id}', ${item.active})">
-          ${item.active ? "Hide" : "Show"}
-        </button>
-
-        <button class="danger"
-          onclick="deleteGallery('${item.id}')">
-          Delete
-        </button>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-async function toggleGallery(id, current) {
-
-  const result =
-    await supabaseClient
-      .from("fashion_gallery")
-      .update({
-        active: !current
-      })
-      .eq("id", id);
-
-  if (result.error) {
-    message(mainMessage, result.error.message, true);
-    return;
-  }
-
-  loadGallery();
-}
-
-
-async function deleteGallery(id) {
-
-  if (!confirm("Delete this design?")) return;
-
-  const result =
-    await supabaseClient
-      .from("fashion_gallery")
-      .delete()
-      .eq("id", id);
-
-  if (result.error) {
-    message(mainMessage, result.error.message, true);
-    return;
-  }
-
-  loadGallery();
-}
-
-
-/* VIDEOS */
-
-document
-  .getElementById("addVideoButton")
-  .addEventListener("click", addVideo);
-
-
-async function addVideo() {
-
-  const title =
-    document.getElementById("videoTitle").value.trim();
-
-  const description =
-    document.getElementById("videoDescription").value.trim();
-
-  const videoUrl =
-    document.getElementById("videoUrl").value.trim();
-
-  const thumbnail =
-    document.getElementById("videoThumbnail").value.trim();
-
-  if (!title || !videoUrl) {
-
-    message(
-      mainMessage,
-      "Enter a video title and video URL.",
-      true
-    );
-
-    return;
-  }
-
-  const result =
-    await supabaseClient
-      .from("fashion_videos")
-      .insert({
-        title: title,
-        description: description,
-        video_url: videoUrl,
-        thumbnail_url: thumbnail,
-        active: true
-      });
-
-  if (result.error) {
-
-    message(
-      mainMessage,
-      result.error.message,
-      true
-    );
-
-    return;
-  }
-
-  document.getElementById("videoTitle").value = "";
-  document.getElementById("videoDescription").value = "";
-  document.getElementById("videoUrl").value = "";
-  document.getElementById("videoThumbnail").value = "";
-
-  message(mainMessage, "Video added!");
-
-  loadVideos();
-}
-
-
-async function loadVideos() {
-
-  const box =
-    document.getElementById("videosList");
-
-  box.innerHTML = "Loading videos...";
-
-  const result =
-    await supabaseClient
-      .from("fashion_videos")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
-
-  if (result.error) {
-
-    box.innerHTML =
-      "<p>" + result.error.message + "</p>";
-
-    return;
-  }
-
-  if (!result.data.length) {
-
-    box.innerHTML =
-      "<p>No videos yet.</p>";
-
-    return;
-  }
-
-  box.innerHTML =
-    result.data.map(video => `
-
-      <div class="card item">
-
-        ${
-          video.thumbnail_url
-          ? `<img src="${safe(video.thumbnail_url)}">`
-          : ""
-        }
-
-        <h3>${safe(video.title)}</h3>
-
-        <p>${safe(video.description || "")}</p>
-
-        <span class="status ${
-          video.active ? "on" : "off"
-        }">
-          ${video.active ? "Visible" : "Hidden"}
-        </span>
-
-        <br>
-
-        <button class="light"
-          onclick="toggleVideo('${video.id}', ${video.active})">
-          ${video.active ? "Hide" : "Show"}
-        </button>
-
-        <button class="danger"
-          onclick="deleteVideo('${video.id}')">
-          Delete
-        </button>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-async function tog
+      <a href=
